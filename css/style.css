@@ -1,41 +1,67 @@
 body {
+	margin: 0;
+	padding: 0;
 	display: flex;
-	background-color: black;
+	background-image: 
+	url("http://realitysandwich.com/wp-content/uploads/2013/11/VortexLanding.jpg");
+	background-size: 100%;
+	background-repeat:  no-repeat;
+	background-position: top;
+	
+	/*background-color: black;
 	/*border: 3px solid black;*/
-	align-content: flex-end;
+	/*align-content: flex-end;*/
+}
+.status {
+	display: flex;
+	border: 1px solid white;
+	color: white;
+	width: 200px;
+	height: 100px;
+	/*position: absolute;
+	top: 20%;
+	bottom: 20%;*/
+		
+
 }
 
 div {
 	display: flex;
 	width: 100%	;
-	height: 50em;
+	height: 15em;
 	/*align-content:flex-end;*/
 	resize: both;
 	overflow: auto;
 	justify-content: center;
     align-content: flex-start;
     flex-direction: column;
+    line-height: 40px;
+    text-align: center;
+
 
 }
 #background {
 	display: flex;
 	width: 100%;
-	height: 35em;
+	height: 10em;
 }
 
 #text-log {
 	border: 3px solid black;
 	display: flex;
 	background-color: rgb(235,213,179);
-	width: 100%	;
+	width: 80%;
 	height: 25em;
 	/*max-height: 300px;*/
 	/*max-width: 1500px;*/
-	margin: 0 auto;
 	resize: both;
 	overflow: auto;
 	/*flex-direction: row;*/
-	align-self: flex-end;
+	/*align-self: flex-end;*/
+	position: absolute;
+	bottom: 1%;
+	margin-left: 100px;
+	margin-right: 100px;
 
 
 }
