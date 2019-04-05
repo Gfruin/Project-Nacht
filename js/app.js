@@ -11,10 +11,10 @@
 class Player {
     constructor(name) {
         this.name = name;
-        this.health = 15;
-        this.strength = 10;
+        this.health = 100;
+        this.strength = 6;
         this.charisma = 10;
-        this.speed = 10;
+        this.speed = 6;
         // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
         // this.exhaustion = Math.floor(Math.random() * (10 - 1) + 1);
         // this.rage = 6;
@@ -22,6 +22,16 @@ class Player {
 	}
 	displayName() {
 		$('#name').text(` ${this.name}`);
+	}
+	attackWithSword() {
+		let number = 0
+		let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
+		console.log(attack);
+	}
+	attackWithDagger() {
+		let number = 0
+		let attack = (this.strength / 2) + this.speed + Math.floor(Math.random() * (4 - 1) + 1);
+		console.log(attack);
 	}
 
 }
@@ -37,6 +47,11 @@ class NonPlayerCharacter extends Player {
 		this.speed = Math.floor(Math.random() * (10 - 1) + 1);
 
 	}
+	attackWithSword() {
+		let number = 0
+		let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
+		console.log(attack);
+	}
 }
 const w = new Player('bob')
 console.log(w);
@@ -46,10 +61,19 @@ console.log(n);
 
 const game = {
 	name: "Aria",
+	// npcName: "Gazorpa"
 	currentPlayer: null,
+	currentNonPlayer: null,
+	weapons: ["sword","dagger", "quarterstaff", "mace", "ax"],
+
 	start() {
-		this.currentPlayer = new Player(this.name)
+		this.currentPlayer = new Player(this.name);
+		this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
+		console.log(game.currentNonPlayer);
+		console.log(game.currentPlayer);
 		game.currentPlayer.displayName();
+		game.currentPlayer.attackWithSword();
+		game.currentPlayer.attackWithDagger();
 
 	}
 }
