@@ -1,13 +1,10 @@
 //need to build a class for the Player and a class for the Non-Player Characters
 //Should I just have the NPC class extend from the initial Player class?
 //Need to also then create the game object
-	//inside the game object, I'll need to have these properties:
-	// name, player, timer, interval, alive, equipment, Objective (win and loss)
-	//
+//inside the game object, I'll need to have these properties:
+// name, player, timer, interval, alive, equipment, Objective (win and loss)
+//
 // Need event listeners 
-
-
-
 class Player {
     constructor(name) {
         this.name = name;
@@ -15,43 +12,56 @@ class Player {
         this.strength = 6;
         this.charisma = 10;
         this.speed = 6;
+        this.accuracy = 0;
+        this.weapon = [];
         // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
         // this.exhaustion = Math.floor(Math.random() * (10 - 1) + 1);
         // this.rage = 6;
         // this.age = Math.floor(Math.random() * (100 - 1) + 1);
-	}
-	displayName() {
-		$('#name').text(` ${this.name}`);
-	}
-	attackWithSword() {
-		let number = 0
-		let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
-		console.log(attack);
-	}
-	attackWithDagger() {
-		let number = 0
-		let attack = (this.strength / 2) + this.speed + Math.floor(Math.random() * (4 - 1) + 1);
-		console.log(attack);
-	}
+    }
+    displayName() {
+        $('#name').text(` ${this.name}`);
+    }
+    toHit() {
+        this.accuracy = this.strength + this.speed + this.weapon[0];
+    }
+    attackWithSword() {
+        let number = 0
+        let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
+        // attack = game.currentNonPlayer.health - attack;
+    }
+    attackWithDagger() {
+        let number = 0
+        let attack = (this.strength / 2) + this.speed + Math.floor(Math.random() * (4 - 1) + 1);
+        console.log(attack);
+    }
+    pickUpSword() {
+        this.weapon.push(game.sword)
+        console.log(this.weapon);
+    }
 
 }
 
 
 
 class NonPlayerCharacter extends Player {
-	constructor(name) {
-		super(name);
-		this.health = Math.floor(Math.random() * (20 - 1) + 1);
-		this.strength = Math.floor(Math.random() * (10 - 1) + 1);
-		this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
-		this.speed = Math.floor(Math.random() * (10 - 1) + 1);
+    constructor(name) {
+        super(name);
+        this.health = Math.floor(Math.random() * (100 - 1) + 1);
+        this.strength = Math.floor(Math.random() * (10 - 1) + 3);
+        this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
+        this.speed = Math.floor(Math.random() * (10 - 1) + 2);
+        this.accuracy = Math.floor(Math.random() * (10 - 1) + 1);
 
-	}
-	attackWithSword() {
-		let number = 0
-		let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
-		console.log(attack);
-	}
+    }
+    toHit() {
+        this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1)+ 2);
+    }
+    attackWithSword() {
+        let number = 0
+        let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
+        console.log(attack);
+    }
 }
 const w = new Player('bob')
 console.log(w);
@@ -60,26 +70,45 @@ console.log(n);
 
 
 const game = {
-	name: "Aria",
-	// npcName: "Gazorpa"
-	currentPlayer: null,
-	currentNonPlayer: null,
-	weapons: ["sword","dagger", "quarterstaff", "mace", "ax"],
+    name: "Aria",
+    // npcName: "Gazorpa"
+    currentPlayer: null,
+    // health: 100,
+    // enemyHealth: null,
+    currentNonPlayer: null,
+    equipment: [],
+    sword: Math.floor(Math.random() * (10 - 1) + 4),
+    ax: Math.floor(Math.random() * (10 - 1) + 6),
+    dagger: Math.floor(Math.random() * (4 - 1) + 2),
+    battle() {
+        game.currentPlayer.toHit();
+        game.currentNonPlayer.toHit();
+        if(game.currentPlayer.accuracy > game.currentNonPlayer.accuracy) {
+            game.currentNonPlayer.health = game.currentNonPlayer.health - game.currentPlayer.weapon[0]
+            console.log(game.currentNonPlayer.health);
+        } if(game.currentPlayer.accuracy < game.currentNonPlayer.accuracy) {
+            game.currentPlayer.health = game.currentPlayer.health - game.currentNonPlayer.strength
+            console.log(game.currentPlayer.health);
+            
+    } console.log(game.currentPlayer.accuracy);
+    console.log(game.currentNonPlayer.accuracy);
+},
 
-	start() {
-		this.currentPlayer = new Player(this.name);
-		this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
-		console.log(game.currentNonPlayer);
-		console.log(game.currentPlayer);
-		game.currentPlayer.displayName();
-		game.currentPlayer.attackWithSword();
-		game.currentPlayer.attackWithDagger();
+    start() {
+        this.currentPlayer = new Player(this.name);
+        this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
+        console.log(game.currentNonPlayer);
+        game.currentPlayer.displayName();
+        game.currentPlayer.pickUpSword();
+        console.log(game.currentPlayer);
 
-	}
+        // game.currentPlayer.attackWithSword();
+        // game.currentPlayer.attackWithDagger();
+        game.battle();
+        // console.log(game.currentPlayer.health);
+
+    }
 }
 
 
 game.start();
-
-
-
