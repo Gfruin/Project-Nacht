@@ -13,7 +13,7 @@ class Player {
         this.charisma = 10;
         this.speed = 8;
         this.accuracy = 0;
-        this.weapon = [];
+        this.weapon = [0];
         // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
         // this.exhaustion = Math.floor(Math.random() * (10 - 1) + 1);
         // this.rage = 6;
@@ -36,11 +36,11 @@ class Player {
     //     console.log(attack);
     // }
     pickUpSword() {
-        this.weapon.push(game.sword)
+        this.weapon.splice(0,1,game.sword)
         console.log(this.weapon);
     }
     pickUpDagger() {
-        this.weapon.push(game.dagger)
+        this.weapon.splice(0,1,game.dagger)
         console.log(this.weapon);
     }
 
@@ -156,35 +156,33 @@ const game = {
     //     }
         // },
 
-    // story() {
-    //     const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
-    //     $('#first').text(`Look Around`);
-    //     $('#second').text(`Walk Forward`);
-    //     $('#third').text(`Fall Back Asleep`);
-    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
-    //         $('#text-log').text(`As you look around you, your gaze catches upon the rumpled form of some kind of bundle or bag.`);
-    //         $('#first').text(`Get up and Walk away`);
-    //         $('#second').text(`Grab the bundle and look through it`);
-    //         $('#third').text(`blank`);
+    story() {
+        const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
+        $('#first').text(`Look Around`);
+        $('#second').text(`Walk Forward`);
+        $('#third').text(`Fall Back Asleep`);
+        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
+            $('#text-log').text(`As you look around you, your gaze catches upon the rumpled form of some kind of bundle or bag.`);
+            $('#first').text(`Get up and Walk away`);
+            $('#second').text(`Grab the bundle and look through it`);
+            $('#third').text(`blank`);
 
-    //     }
-    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
-    //         $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
-    //         $('#first').text(`Attack it!`);
-    //         $('#second').text(`Try talking.`);
-    //         $('#third').text(`RUN!!!!!`);
+        }
+        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
+            $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
+            $('#first').text(`Attack it!`);
+            $('#second').text(`Try talking.`);
+            $('#third').text(`RUN!!!!!`);
 
-    //     }
-    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
-    //         for(let i = 0; i < 100; i++) {
-    //             this.battle(i);
-    //             $('#text-log').text(` Your health is ${this.currentPlayer.health}`)
-    //             $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`)
-    //         }
-    //     }
+        }
+        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
+                $('#text-log').text(` Your health is ${this.currentPlayer.health}`)
+                $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`)
+            
+        }
 
 
-    // },
+    },
 
     start() {
         this.currentPlayer = new Player(this.name);
@@ -193,7 +191,7 @@ const game = {
         game.currentPlayer.displayName();
         // game.story();
         // game.currentPlayer.pickUpSword();
-        game.currentPlayer.pickUpDagger();
+        // game.currentPlayer.pickUpDagger();
         console.log(game.currentPlayer);
 
         // game.currentPlayer.attackWithSword();
