@@ -9,9 +9,9 @@ class Player {
     constructor(name) {
         this.name = name;
         this.health = 100;
-        this.strength = 6;
+        this.strength = 8;
         this.charisma = 10;
-        this.speed = 6;
+        this.speed = 8;
         this.accuracy = 0;
         this.weapon = [];
         // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
@@ -39,6 +39,10 @@ class Player {
         this.weapon.push(game.sword)
         console.log(this.weapon);
     }
+    pickUpDagger() {
+        this.weapon.push(game.dagger)
+        console.log(this.weapon);
+    }
 
 }
 
@@ -48,9 +52,9 @@ class NonPlayerCharacter extends Player {
     constructor(name) {
         super(name);
         this.health = Math.floor(Math.random() * (100 - 1) + 1);
-        this.strength = Math.floor(Math.random() * (10 - 1) + 3);
+        this.strength = Math.floor(Math.random() * (10 - 1) + 2);
         this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
-        this.speed = Math.floor(Math.random() * (10 - 1) + 2);
+        this.speed = Math.floor(Math.random() * (10 - 1) + 1);
         this.accuracy = Math.floor(Math.random() * (10 - 1) + 1);
 
     }
@@ -61,6 +65,17 @@ class NonPlayerCharacter extends Player {
         let number = 0
         let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
         console.log(attack);
+    }
+}
+class BossMonster extends Player {
+    constructor(name) {
+        super(name);
+        this.health = Math.floor(Math.random() * (100 - 1) + 30);
+        this.strength = Math.floor(Math.random() * (10 - 1) + 8);
+        this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
+        this.speed = Math.floor(Math.random() * (10 - 1) + 6);
+        this.accuracy = Math.floor(Math.random() * (10 - 1) + 5);
+
     }
 }
 const w = new Player('bob')
@@ -79,7 +94,7 @@ const game = {
     equipment: [],
     sword: Math.floor(Math.random() * (10 - 1) + 4),
     ax: Math.floor(Math.random() * (10 - 1) + 6),
-    dagger: Math.floor(Math.random() * (4 - 1) + 2),
+    dagger: Math.floor(Math.random() * (6 - 1) + 2),
     battle() {
         game.currentPlayer.toHit();
         game.currentNonPlayer.toHit();
@@ -99,7 +114,8 @@ const game = {
         this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
         console.log(game.currentNonPlayer);
         game.currentPlayer.displayName();
-        game.currentPlayer.pickUpSword();
+        // game.currentPlayer.pickUpSword();
+        game.currentPlayer.pickUpDagger();
         console.log(game.currentPlayer);
 
         // game.currentPlayer.attackWithSword();
@@ -112,3 +128,13 @@ const game = {
 
 
 game.start();
+
+
+
+
+
+
+
+
+
+

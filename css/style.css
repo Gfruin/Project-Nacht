@@ -63,6 +63,8 @@ body {
 	margin-left: 10%;
 	margin-right: 10%;
 	font-size: 14px;
+	font-stretch: expanded;
+	columns: inherit;
 
 }
 #buttons {
@@ -101,7 +103,7 @@ body {
 #third {
 	width: 300px;
 	height: 30px;
-	
+
 }
 
 
