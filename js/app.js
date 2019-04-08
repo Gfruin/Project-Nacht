@@ -91,7 +91,7 @@ const game = {
     // health: 100,
     // enemyHealth: null,
     currentNonPlayer: null,
-    equipment: [],
+    screenPath: [],
     sword: Math.floor(Math.random() * (10 - 1) + 4),
     ax: Math.floor(Math.random() * (10 - 1) + 6),
     dagger: Math.floor(Math.random() * (6 - 1) + 2),
@@ -113,84 +113,97 @@ const game = {
     },
 
 
-    story(buttonId) {
-        console.log(buttonId);
-        // let path = 
-        const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
-        $('#first').text(`Look Around`);
-        $('#second').text(`Walk Forward`);
-        $('#third').text(`Fall Back Asleep`);
+    // story(buttonId) {
+    //     console.log(buttonId);
+    //     // let path = 
+    //     const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
+    //     $('#first').text(`Look Around`);
+    //     $('#second').text(`Walk Forward`);
+    //     $('#third').text(`Fall Back Asleep`);
 
-        let lookAround;
+        // let lookAround;
 
-        switch (buttonId) {
-            case 'first':
-                lookAround = $('#text-log').text(`As you look around you, your gaze catches upon a solid bundle back behind you.`);
-                $('#first').text(`fdfasfds`);
-                $('#second').text(`Walk Forward`);
-                $('#third').text(`Fall Back Asleep`);
-                break;
-            case 'second': 
-                lookAround = $('#text-log').text(`Your feet move of their own accord. Your cadence slows as you move along a trodden path.`);
-                $('#first').text(`fdfasfds`);
-                $('#second').text(`grevv`);
-                $('#third').text(`fwfafewafds`);
-                break;
-            case 'third':
-                lookAround = $('#text-log').text(`You close your eyes and allow yourself to drift back to sleep. The gentle noises of the forest slowing ebb in the background.`);
-                $('#first').text(`fdfasfds`);
-                $('#second').text(`Walk Forward`);
-                $('#third').text(`Fall Back Asleep`);
-                break;
-        }
-
-
-
-
-    },
-
-
+    //     switch (buttonId) {
+    //         case 'first':
+    //             lookAround = $('#text-log').text(`As you look around you, your gaze catches upon a solid bundle back behind you.`);
+    //             $('#first').text(`Get up and Walk away`);
+    //             $('#second').text(`Grab the bundle and look through it`);
+    //             $('#third').text(`blank`);
+    //             //above is what I want one of my screens to look like
+    //             path1 = (buttonId) => {
+    //                 switch (buttonId) {
+    //                     case 'first':
+    //                     $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
+    //                     $('#first').text(`Attack it!`);
+    //                     $('#second').text(`Try talking.`);
+    //                     $('#third').text(`RUN!!!!!`);
+    //                 }
+                    
+    //             }
+    //             break;
+    //         case 'second': 
+    //             lookAround = $('#text-log').text(`Your feet move of their own accord. Your cadence slows as you move along a trodden path.`);
+    //             $('#first').text(`fdfasfds`);
+    //             $('#second').text(`grevv`);
+    //             $('#third').text(`fwfafewafds`);
+    //             break;
+    //         case 'third':
+    //             lookAround = $('#text-log').text(`You close your eyes and allow yourself to drift back to sleep. The gentle noises of the forest slowing ebb in the background.`);
+    //             $('#first').text(`fdfasfds`);
+    //             $('#second').text(`Walk Forward`);
+    //             $('#third').text(`Fall Back Asleep`);
+    //             break;
+    //     }
+        // },
 
     // story() {
     //     const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
     //     $('#first').text(`Look Around`);
     //     $('#second').text(`Walk Forward`);
     //     $('#third').text(`Fall Back Asleep`);
-        
+    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
+    //         $('#text-log').text(`As you look around you, your gaze catches upon the rumpled form of some kind of bundle or bag.`);
+    //         $('#first').text(`Get up and Walk away`);
+    //         $('#second').text(`Grab the bundle and look through it`);
+    //         $('#third').text(`blank`);
 
-    //         const lookAround = $('#text-log').text(`As you look around you, your gaze catches upon a solid bundle back behind you.`);
-    //     //     $('#first').text(`fdfasfds`);
-    //     //     $('#second').text(`Walk Forward`);
-    //     //     $('#third').text(`Fall Back Asleep`);
-    //     } 
-    // },
-
-    // turnOn() {
-    //     if(!this.gameOn) {
-    //          this.gameOn = true;
-    //         console.log(game.gameOn);
     //     }
-    // },
+    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
+    //         $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
+    //         $('#first').text(`Attack it!`);
+    //         $('#second').text(`Try talking.`);
+    //         $('#third').text(`RUN!!!!!`);
 
+    //     }
+    //     if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
+    //         for(let i = 0; i < 100; i++) {
+    //             this.battle(i);
+    //             $('#text-log').text(` Your health is ${this.currentPlayer.health}`)
+    //             $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`)
+    //         }
+    //     }
+
+
+    // },
 
     start() {
         this.currentPlayer = new Player(this.name);
         this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
         console.log(game.currentNonPlayer);
         game.currentPlayer.displayName();
+        // game.story();
         // game.currentPlayer.pickUpSword();
         game.currentPlayer.pickUpDagger();
         console.log(game.currentPlayer);
 
         // game.currentPlayer.attackWithSword();
         // game.currentPlayer.attackWithDagger();
-        game.battle();
+        // game.battle();
         // console.log(game.currentPlayer.health);
-    }
+     }
 }
 
 
-game.story();
 game.start();
 // game.story();
 
@@ -198,6 +211,9 @@ $('#buttons').on('click', (e) => {
 
     // console.log(e.target.id);
     game.story(e.target.id)
+    game.screenPath.push(e.target.id)
+    game.story();
+
 
 })
 
