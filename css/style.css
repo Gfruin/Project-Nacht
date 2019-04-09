@@ -11,7 +11,6 @@ body {
 	/*background-color: black;
 	/*border: 3px solid black;*/
 	/*align-content: flex-end;*/
-	font-family: 'La Belle Aurore', cursive;
 }
 .status {
 	display: flex;
@@ -38,6 +37,7 @@ body {
     flex-direction: column;
     line-height: 40px;
     text-align: center;
+    font-family: 'Special Elite', cursive;
 
 
 }
@@ -63,9 +63,10 @@ body {
 	bottom: 1%;
 	margin-left: 10%;
 	margin-right: 10%;
-	font-size: 18px;
+	font-size: 22px;
 	font-stretch: expanded;
 	columns: inherit;
+	font-family: 'Special Elite', cursive;
 
 }
 #buttons {
@@ -88,6 +89,7 @@ body {
 	margin-bottom: 1%;
 	resize: both;
 	overflow: auto;
+	font-family: 'Special Elite', cursive;
 
 }
 

@@ -131,7 +131,7 @@ const game = {
         game.currentPlayer.toHit();
         game.currentNonPlayer.toHit();
         if (game.currentPlayer.accuracy > game.currentNonPlayer.accuracy) {
-            game.currentNonPlayer.health = game.currentNonPlayer.health - game.currentPlayer.weapon[0]
+            game.currentNonPlayer.health = game.currentNonPlayer.health - (game.currentPlayer.weapon[0] + this.currentPlayer.strength)
             $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`);
 
         }
@@ -144,12 +144,12 @@ const game = {
             // this.battleWon();
         }
 
-        // console.log(game.currentPlayer.accuracy);
-        // console.log(game.currentNonPlayer.accuracy);
+        console.log(game.currentPlayer.accuracy);
+        console.log(game.currentNonPlayer.accuracy);
     },
     story: function() {
         if (this.screenPath.length === 1 && this.screenPath[0] === 'first') {
-            $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars. You don't know where you are. You try to conjure up an image of the last thing you remember...and it returns NOTHING. You do know your name...it is Aria. You look at your hands, your feet, scintillating bits of light flicker across them as you gaze upon both. The thought comes to your mind, "Were you always color-blind?" You look upon a world, in hues of black, white, and gray.`);
+            $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars. You don't know where you are. You try to conjure up an image of the last thing you remember...and it returns NOTHING. You do know your name...it is Aria. You look at your hands, your feet, scintillating bits of light flicker across them as you gaze upon both. The thought comes to your mind, "Were you always color-blind?" You look upon a world, in hues of black, white, and gray. The voice speaks to you again..."Find what was lost. Follow the PATH, and you shall be made WHOLE again. Stray and you will FAIL."`);
         
         $('#first').text(`Look Around`);
         $('#second').text(`Walk Forward`);
@@ -165,6 +165,7 @@ const game = {
         if (this.screenPath.length === 3 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
             $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
             this.currentNonPlayer = new NonPlayerCharacter('Wolverine');
+            console.log(this.currentNonPlayer);
             $('#first').text(`Turn around!`);
             $('#second').text(`Try talking`);
             $('#third').text(`RUN!!!!!`);
@@ -209,13 +210,38 @@ const game = {
             $('#first').text(`Turn Back`);
             $('#second').text(`Walk in`);
             $('#third').text(`blank`);
+
         }
+        if (this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first') {
+            $('#text-log').text(`You turn back. The cave is far too eerie to enter. You wander the forest for what feels like hours, attempting to find your way back to where you started. Finally you spot something in the distance. A lonely stone tower. `)
+            $('#first').text(`Keep Searching for where you started`);
+            $('#second').text(`Head Towards the Tower`);
+            $('#third').text(`blank`);     
+        } 
+        if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' 
+            && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' 
+            && this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' && this.screenPath[8] === 'first' && this.screenPath[9] === 'first') {
+            $('#text-log').text(`You've had your fair share of adventure already. Who knows what could be in that tower! You turn back into the forest. As you head deeper and deeper in, you realize your mistake. You are TRULY LOST. You wander aimlessly....`)
+            $('#first').text(`Give up`);
+            $('#second').text(`blank`);
+            $('#third').text(`blank`);
+        }  
+        if (this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' 
+            && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' 
+            && this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' && this.screenPath[8] === 'first'
+            && this.screenPath[9] === 'first' && this.screenPath[10] === 'first' ) {
+            $('#text-log').text(`Your PATH has ended. GAME OVER!`) 
+            $('#first').text(`Game Over`);
+            $('#second').text(`Game Over`);
+            $('#third').text(`Game Over`);
+        }
+
     },
 
     start: function() {
         this.currentPlayer = new Player(this.name);
         // this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
-        game.currentPlayer.pickUpDagger();
+        // game.currentPlayer.pickUpDagger();
         game.currentPlayer.displayName();
         // game.gameOver();
         // game.lifeCheck();
