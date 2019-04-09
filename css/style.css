@@ -91,30 +91,29 @@ body {
 	margin-bottom: 1%;
 	resize: both;
 	overflow: auto;
-	font-family: 'Special Elite', cursive;
+	font-size: 20px;
 
 }
 
 #first {
 	width: 300px;
 	height: 30px;
+	font-family: 'Special Elite', cursive;
+	font-size: 16px;
 }
 #second {
 	width: 300px;
 	height: 30px;
-
+	font-family: 'Special Elite', cursive;
+	font-size: 16px;
 
 }
 #third {
 	width: 300px;
 	height: 30px;
+	font-family: 'Special Elite', cursive;
+	font-size: 16px;
 
-}
-
-#attack {
-	align-self: center;
-	width: 200px;
-	height: 200px;
 }
 
 

@@ -266,7 +266,7 @@ const game = {
             $('#second').text(`Accept your fate!`);
             $('#third').text(`blank`); 
         }
-            //you try to dodge by using the run function
+            //you try to dodge by using the run function: Includes both fam
         if (this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
@@ -317,7 +317,7 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'third' ) {
-            $('#text-log').text(`You tried knocking on the door, and wait for a response. A minute passes by with no acknowledgment. Well...at least you tried to be polite. `)
+            $('#text-log').text(`You try knocking on the door, and wait for a response. A minute passes by with no acknowledgment. Well...at least you tried to be polite. `)
             $('#first').text(`Push open the door`);
             $('#second').text(`blank`);
             $('#third').text(`blank`);
