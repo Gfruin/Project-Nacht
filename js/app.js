@@ -14,6 +14,7 @@ class Player {
         this.speed = 8;
         this.accuracy = 0;
         this.weapon = [0];
+        this.heal = [0];
         // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
         // this.exhaustion = Math.floor(Math.random() * (10 - 1) + 1);
         // this.rage = 6;
@@ -29,7 +30,10 @@ class Player {
         this.charisma = this.charisma + Math.floor(Math.random() * (6 - 1) + 1);
     }
     run() {
-        this.speed = this.speed + Math.floor(Math.random() * (6 - 1) + 1);
+        this.speed = this.speed + Math.floor(Math.random() * (4 - 1) + 1);
+    }
+    healing() {
+        this.health = this.health + this.heal[0];
     }
     // attackWithSword() {
     //     let number = 0
@@ -48,6 +52,9 @@ class Player {
     pickUpDagger() {
         this.weapon.splice(0, 1, game.dagger)
         console.log(this.weapon);
+    }
+    pickUpHealthPotion() {
+        this.heal.splice(0, 1, game.healthPotion)
     }
 
 };
@@ -71,7 +78,7 @@ class NonPlayerCharacter extends Player {
         this.charisma = this.charisma + Math.floor(Math.random() * (6 - 1) + 1);
     }
     run() {
-        this.speed = this.speed + Math.floor(Math.random() * (6 - 1) + 1);
+        this.speed = this.speed + Math.floor(Math.random() * (4 - 1) + 1);
     }
     // attackWithSword() {
     //     let number = 0
@@ -85,7 +92,7 @@ class BossMonster extends Player {
         this.health = Math.floor(Math.random() * (100 - 1) + 30);
         this.strength = Math.floor(Math.random() * (10 - 1) + 8);
         this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
-        this.speed = Math.floor(Math.random() * (10 - 1) + 6);
+        this.speed = Math.floor(Math.random() * (10 - 1) + 7);
         this.accuracy = Math.floor(Math.random() * (10 - 1) + 5);
 
     }
@@ -106,6 +113,7 @@ const game = {
     sword: Math.floor(Math.random() * (10 - 1) + 4),
     ax: Math.floor(Math.random() * (10 - 1) + 6),
     dagger: Math.floor(Math.random() * (6 - 1) + 2),
+    healthPotion: Math.floor(Math.random() * (30 - 1) + 1),
     gameOn: false,
     isAlive: true,
     wonBattle: false,
@@ -185,7 +193,7 @@ const game = {
             //or the NPC's health is at or below 0
             //need to log the current player and NPC health on the text log
             //need to then reset the this.screenPath array length to 4
-            if (this.currentNonPlayer.health <= 0) {
+            if (this.currentNonPlayer.health < 0) {
                 console.log('This logic was hit');
                 $('#buttons').on('click', (e) => {
                     game.story(e.target.id)
@@ -225,11 +233,11 @@ const game = {
             $('#second').text(`Head Towards the Tower`);
             $('#third').text(`blank`);
         }
-            //Head towards the Tower
+            //At Tower entrance
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 12 && this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'second') {
@@ -239,15 +247,93 @@ const game = {
             $('#third').text(`blank`);
         }
             //approach the door
-        if (this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first') {
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first') {
             $('#text-log').text(`You approach the massive wooden door. The door has two large ring door handles.`)
             $('#first').text(`Try pushing the doors open`);
             $('#second').text(`Turn back`);
             $('#third').text(`Maybe it would be polite to knock first...?`);
         }
+            //push through the door and meet the HAMMER!!!
+        if (this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'first') {
+            $('#text-log').text(`You don't have time to be polite! You push open the doors! As you enter, you hear a 'CRACK' and a swift sound of a solid object moving through the air. You see it to be a large HAMMER as it moves closer to smash you!`)
+            $('#first').text(`Try to dodge!`);
+            $('#second').text(`Accept your fate!`);
+            $('#third').text(`blank`); 
+        }
+            //you try to dodge by using the run function
+        if (this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first') {
+                $('#first').text(`Try to dodge!`);
+                $('#second').text(`blank`);
+                $('#third').text(`blank`); 
+                $('#buttons').off('click');
+                $('#first').on('click');
+                $('#first').on('click', (e) => {
+                    game.currentPlayer.run();
+                    console.log(game.currentPlayer.speed);
+                })
+            if (game.currentPlayer.speed >= 11) {
+                $('#buttons').on('click', (e) => {
+                    game.story(e.target.id)
+                    game.screenPath.push(e.target.id)
+                    game.story();
+                    e.preventDefault();
+                });
+                $('#first').off('click');
+                $('#text-log').text(`The world seemingly slows around you as the HAMMER approaches. You deftly roll out of the way as the HAMMER slams into the door behind you. It blocks your exit.`)
+            }
+            if(game.currentPlayer.speed <= 10) {
+                $('#text-log').text(`You just weren't fast enough as you meet your fate at the end of an immense HAMMER! Guess you should have knocked first,ehh??? Your PATH has ENDED! GAME OVER!!!`)
+                $('#first').text(`Game Over`);
+                $('#second').text(`Game Over`);
+                $('#third').text(`Game Over`);
+
+            }
+        }
+            //accepted fate and was smashed by the hammer
+        if (this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second') {
+            $('#text-log').text(`You meet your fate at the end of an immense HAMMER. Guess you should have knocked first,ehh??? Your PATH has ENDED! GAME OVER!!!`)
+            $('#first').text(`Game Over`);
+            $('#second').text(`Game Over`);
+            $('#third').text(`Game Over`);
+        }
+            //knock on the door
+        if (this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'third' ) {
+            $('#text-log').text(`You tried knocking on the door, and wait for a response. A minute passes by with no acknowledgment. Well...at least you tried to be polite. `)
+            $('#first').text(`Push open the door`);
+            $('#second').text(`blank`);
+            $('#third').text(`blank`);
+        }
+            //push open the door and enter the entrance hall
+        if (this.screenPath.length === 15 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' 
+            && this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && this.screenPath[14] === 'first') {
+            $('#text-log').text(`You enter a large, round entrance hall. As you gaze around your vicinity, you see the crumbling remains of the rich and powerful. Beautiful tapetries once adorned the walls, hang stretched, ripped, and torn. Large wooden banquet tables line the area to your immediate left and right. All in various stages of decay. As you gaze across the room, you see a large stone throne across the room.`)
+            $('#first').text(`That throne looks interesting`);
+            $('#second').text(`Search the room`);
+            $('#third').text(`blank`);
+        }
+            
             //turn back from the Tower
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
