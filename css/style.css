@@ -11,6 +11,7 @@ body {
 	/*background-color: black;
 	/*border: 3px solid black;*/
 	/*align-content: flex-end;*/
+	font-family: 'La Belle Aurore', cursive;
 }
 .status {
 	display: flex;
@@ -62,7 +63,7 @@ body {
 	bottom: 1%;
 	margin-left: 10%;
 	margin-right: 10%;
-	font-size: 16px;
+	font-size: 18px;
 	font-stretch: expanded;
 	columns: inherit;
 
@@ -106,6 +107,11 @@ body {
 
 }
 
+#attack {
+	align-self: center;
+	width: 200px;
+	height: 200px;
+}
 
 
 

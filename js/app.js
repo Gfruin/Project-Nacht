@@ -10,7 +10,7 @@ class Player {
         this.name = name;
         this.health = 100;
         this.strength = 8;
-        this.charisma = 10;
+        this.charisma = 5;
         this.speed = 8;
         this.accuracy = 0;
         this.weapon = [0];
@@ -25,6 +25,12 @@ class Player {
     toHit() {
         this.accuracy = this.strength + this.speed + this.weapon[0];
     }
+    charm() {
+        this.charisma = this.charisma + Math.floor(Math.random() * (6 - 1) + 1);
+    }
+    run() {
+        this.speed = this.speed + Math.floor(Math.random() * (6 - 1) + 1);
+    }
     // attackWithSword() {
     //     let number = 0
     //     let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
@@ -36,15 +42,15 @@ class Player {
     //     console.log(attack);
     // }
     pickUpSword() {
-        this.weapon.splice(0,1,game.sword)
+        this.weapon.splice(0, 1, game.sword)
         console.log(this.weapon);
     }
     pickUpDagger() {
-        this.weapon.splice(0,1,game.dagger)
+        this.weapon.splice(0, 1, game.dagger)
         console.log(this.weapon);
     }
 
-}
+};
 
 
 
@@ -60,6 +66,12 @@ class NonPlayerCharacter extends Player {
     }
     toHit() {
         this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1) + 2);
+    }
+    charm() {
+        this.charisma = this.charisma + Math.floor(Math.random() * (6 - 1) + 1);
+    }
+    run() {
+        this.speed = this.speed + Math.floor(Math.random() * (6 - 1) + 1);
     }
     // attackWithSword() {
     //     let number = 0
@@ -77,12 +89,11 @@ class BossMonster extends Player {
         this.accuracy = Math.floor(Math.random() * (10 - 1) + 5);
 
     }
-}
-const w = new Player('bob')
-console.log(w);
-const n = new NonPlayerCharacter('tim')
-console.log(n);
-
+};
+// const w = new Player('bob')
+// console.log(w);
+// const n = new NonPlayerCharacter('tim')
+// console.log(n);
 
 const game = {
     name: "Aria",
@@ -96,110 +107,130 @@ const game = {
     ax: Math.floor(Math.random() * (10 - 1) + 6),
     dagger: Math.floor(Math.random() * (6 - 1) + 2),
     gameOn: false,
-    battle() {
+    isAlive: true,
+    wonBattle: false,
+    // lifeCheck: function() {
+    //     if (this.currentPlayer.health === 0) {
+    //         this.isAlive = false
+    //     }
+    // },
+    // gameOver: function() {
+    //     if (!this.isAlive) {
+    //         // const newImg = "Amiri"
+    //         $('#text-log').text(`GAME OVER!!!!`);
+
+    //     }
+    // },
+    // battleWon: function() {
+    //     if(this.currentNonPlayer.health <= 0) {
+    //         this.wonBattle = true
+    //         $('text-log').text(`You defeated the enemy!`)
+    //     }
+    // },
+    battle: function() {
         game.currentPlayer.toHit();
         game.currentNonPlayer.toHit();
         if (game.currentPlayer.accuracy > game.currentNonPlayer.accuracy) {
             game.currentNonPlayer.health = game.currentNonPlayer.health - game.currentPlayer.weapon[0]
-            console.log(game.currentNonPlayer.health);
+            $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`);
+
         }
         if (game.currentPlayer.accuracy < game.currentNonPlayer.accuracy) {
             game.currentPlayer.health = game.currentPlayer.health - game.currentNonPlayer.strength
-            console.log(game.currentPlayer.health);
+            $('#text-log').text(` Your health is ${this.currentPlayer.health}`);
 
+            // this.lifeCheck();
+            // this.gameOver();
+            // this.battleWon();
         }
-        console.log(game.currentPlayer.accuracy);
-        console.log(game.currentNonPlayer.accuracy);
+
+        // console.log(game.currentPlayer.accuracy);
+        // console.log(game.currentNonPlayer.accuracy);
     },
-
-
-    // story(buttonId) {
-    //     console.log(buttonId);
-    //     // let path = 
-    //     const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
-    //     $('#first').text(`Look Around`);
-    //     $('#second').text(`Walk Forward`);
-    //     $('#third').text(`Fall Back Asleep`);
-
-        // let lookAround;
-
-    //     switch (buttonId) {
-    //         case 'first':
-    //             lookAround = $('#text-log').text(`As you look around you, your gaze catches upon a solid bundle back behind you.`);
-    //             $('#first').text(`Get up and Walk away`);
-    //             $('#second').text(`Grab the bundle and look through it`);
-    //             $('#third').text(`blank`);
-    //             //above is what I want one of my screens to look like
-    //             path1 = (buttonId) => {
-    //                 switch (buttonId) {
-    //                     case 'first':
-    //                     $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
-    //                     $('#first').text(`Attack it!`);
-    //                     $('#second').text(`Try talking.`);
-    //                     $('#third').text(`RUN!!!!!`);
-    //                 }
-                    
-    //             }
-    //             break;
-    //         case 'second': 
-    //             lookAround = $('#text-log').text(`Your feet move of their own accord. Your cadence slows as you move along a trodden path.`);
-    //             $('#first').text(`fdfasfds`);
-    //             $('#second').text(`grevv`);
-    //             $('#third').text(`fwfafewafds`);
-    //             break;
-    //         case 'third':
-    //             lookAround = $('#text-log').text(`You close your eyes and allow yourself to drift back to sleep. The gentle noises of the forest slowing ebb in the background.`);
-    //             $('#first').text(`fdfasfds`);
-    //             $('#second').text(`Walk Forward`);
-    //             $('#third').text(`Fall Back Asleep`);
-    //             break;
-    //     }
-        // },
-
-    story() {
-        const wakeUp = $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars.`);
+    story: function() {
+        if (this.screenPath.length === 1 && this.screenPath[0] === 'first') {
+            $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars. You don't know where you are. You try to conjure up an image of the last thing you remember...and it returns NOTHING. You do know your name...it is Aria. You look at your hands, your feet, scintillating bits of light flicker across them as you gaze upon both. The thought comes to your mind, "Were you always color-blind?" You look upon a world, in hues of black, white, and gray.`);
+        
         $('#first').text(`Look Around`);
         $('#second').text(`Walk Forward`);
         $('#third').text(`Fall Back Asleep`);
-        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
+    }
+        if (this.screenPath.length === 2 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
             $('#text-log').text(`As you look around you, your gaze catches upon the rumpled form of some kind of bundle or bag.`);
             $('#first').text(`Get up and Walk away`);
             $('#second').text(`Grab the bundle and look through it`);
             $('#third').text(`blank`);
 
         }
-        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
+        if (this.screenPath.length === 3 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
             $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
-            $('#first').text(`Attack it!`);
-            $('#second').text(`Try talking.`);
+            this.currentNonPlayer = new NonPlayerCharacter('Wolverine');
+            $('#first').text(`Turn around!`);
+            $('#second').text(`Try talking`);
             $('#third').text(`RUN!!!!!`);
+        }
+        if(this.screenPath.length === 4 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
+            $('#text-log').text(`As you quickly turn to face your foe, your gaze turns to a snarling mass of wicked teeth, sizeable muscle, and matted fur of some kind of wolf-like creature. It howls at you, bloodlust intent in its eyes. It slowly circles you, moving in a horrifyingly mesmerising pattern. The tension is palpable. You know that you must make a decision soon...It lets out a howl that shakes you to your core. `)
+            $('#first').text(`Attack it!!!`);
+            $('#second').text(`Try talking`);
+            $('#third').text(`RUN!!!!!`);
+        }
+        if (this.screenPath.length === 5 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first') {
+            //need to run the game.battle() function until either the player's health
+            //or the NPC's health is at or below 0
+            //need to log the current player and NPC health on the text log
+            //need to then reset the this.screenPath array length to 4
+            if (this.currentNonPlayer.health <= 0) {
+                console.log('This logic was hit');
+                $('#buttons').on('click', (e) => {
+                game.story(e.target.id)
+                game.screenPath.push(e.target.id)
+                game.story();
+                e.preventDefault();
+            });
+                $('#first').off('click');
+                $('#first').text(`One last strike!`);
+            }
+            if(this.currentPlayer.health <= 0) {
+                console.log('this logic was hit');
+                $('#text-log').text(`You rise to fight the beast one last time. Covered in blood from the battle, the beast gets the best of you. You meet in a clash of fangs and fists. It RISES...YOU FALL... GAME OVER!!!`)
+
+            }
+            if (this.currentPlayer.health >= 0 && this.currentNonPlayer.health >= 0) {
+                $('#buttons').off('click');
+                $('#first').on('click');
+                // $('#text-log').text(` `)
+                $('#text-log').text(`You pummel the enemy with your bare fists! The enemy's current health is ${this.currentNonPlayer.health}! The enemy strikes you! Your health is  ${this.currentPlayer.health}`)
+            }
 
         }
-        if(this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
-                $('#text-log').text(` Your health is ${this.currentPlayer.health}`)
-                $('#text-log').text(`The enemy's health is ${this.currentNonPlayer.health}`)
-            
+        if (this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && this.screenPath[5] === 'first') {
+            $('#text-log').text(`The hairy beast leaps toward you, in one final attempt to claim your life. You find strength where you had none before and you leap into the air! As you wrap your arms around the beasts neck, you pull with all your STRENGTH! The beast falls to the ground, defeated. You stumble to your feet, shaken. You've never killed anything before...  In front of you, there is an entrance to a cave.`)
+            $('#first').text(`Turn Back`);
+            $('#second').text(`Walk in`);
+            $('#third').text(`blank`);
         }
-
-
     },
 
-    start() {
+    start: function() {
         this.currentPlayer = new Player(this.name);
-        this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
-        console.log(game.currentNonPlayer);
+        // this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
+        game.currentPlayer.pickUpDagger();
         game.currentPlayer.displayName();
+        // game.gameOver();
+        // game.lifeCheck();
+        console.log(game.currentNonPlayer);
         // game.story();
         // game.currentPlayer.pickUpSword();
-        // game.currentPlayer.pickUpDagger();
         console.log(game.currentPlayer);
-
         // game.currentPlayer.attackWithSword();
         // game.currentPlayer.attackWithDagger();
         // game.battle();
         // console.log(game.currentPlayer.health);
-     }
+    },
+
 }
+
 
 
 game.start();
@@ -211,7 +242,7 @@ $('#buttons').on('click', (e) => {
     game.story(e.target.id)
     game.screenPath.push(e.target.id)
     game.story();
-
+    e.preventDefault();
 
 })
 
@@ -221,8 +252,10 @@ $('#first').on('click', (e) => {
     // $('#first').data('clicked', true);
     // game.turnOn();
     // game.start();
-    // game.story();
     // console.log(game.gameOn)
+    game.battle();
+    game.story();
+    e.preventDefault();
 
 })
 
@@ -234,3 +267,5 @@ $('#third').on('click', (e) => {
 
 
 })
+
+
