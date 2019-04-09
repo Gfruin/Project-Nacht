@@ -326,8 +326,15 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && this.screenPath[14] === 'first') {
-            $('#text-log').text(`You see a large, round entrance hall. As you gaze around your vicinity, you see the crumbling remains of the rich and powerful. Beautiful tapetries once adorned the walls, hang stretched, ripped, and torn. Large wooden banquet tables line the area to your immediate left and right. All in various stages of decay. As you gaze across the room, you see a large stone throne across the room.`)
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
+            this.screenPath[14] === 'first' || this.screenPath.length === 17 && this.screenPath[0] === 'first' && 
+            this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first') {
+            $('#text-log').text(`You see a large, round entrance hall. As you gaze around your vicinity, you see the crumbling remains of the rich and powerful. Beautiful tapestries once adorned the walls, hang stretched, ripped, and torn. Large wooden banquet tables line the area to your immediate left and right. All in various stages of decay. As you gaze across the room, you see a large stone throne across the room.`)
             $('#first').text(`That throne looks interesting`);
             $('#second').text(`Search the room`);
             $('#third').text(`blank`);
