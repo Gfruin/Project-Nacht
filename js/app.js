@@ -15,10 +15,6 @@ class Player {
         this.accuracy = 0;
         this.weapon = [0];
         this.heal = [0];
-        // this.hunger = Math.floor(Math.random() * (10 - 1) + 1);
-        // this.exhaustion = Math.floor(Math.random() * (10 - 1) + 1);
-        // this.rage = 6;
-        // this.age = Math.floor(Math.random() * (100 - 1) + 1);
     }
     displayName() {
         $('#name').text(` ${this.name}`);
@@ -195,6 +191,7 @@ const game = {
             //need to then reset the this.screenPath array length to 4
             if (this.currentNonPlayer.health < 0) {
                 console.log('This logic was hit');
+                $('#first').text(`One last strike!`);
                 $('#buttons').on('click', (e) => {
                     game.story(e.target.id)
                     game.screenPath.push(e.target.id)
@@ -202,13 +199,14 @@ const game = {
                     e.preventDefault();
                 });
                 $('#first').off('click');
-                $('#first').text(`One last strike!`);
             }
 
             if (this.currentPlayer.health <= 0) {
                 console.log('this logic was hit');
                 $('#text-log').text(`You rise to fight the beast one last time. Covered in blood from the battle, the beast gets the best of you. You meet in a clash of fangs and fists. It RISES...YOU FALL... GAME OVER!!!`)
-
+                $('#first').text(`Game Over`);
+                $('#second').text(`Game Over`);
+                $('#third').text(`Game Over`);
             }
 
             if (this.currentPlayer.health >= 0 && this.currentNonPlayer.health >= 0) {
@@ -216,6 +214,7 @@ const game = {
                 $('#first').on('click');
                 // $('#text-log').text(` `)
                 $('#text-log').text(`You pummel the enemy with your bare fists! The enemy's current health is ${this.currentNonPlayer.health}! The enemy strikes you! Your health is  ${this.currentPlayer.health}`)
+                
             }
         }
         //defeat the wolverine
@@ -273,11 +272,11 @@ const game = {
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first') {
-            $('#first').text(`Try to dodge!`);
-            $('#second').text(`blank`);
+            $('#first').text(`blank`);
+            $('#second').text(`Try to Dodge!`);
             $('#third').text(`blank`);
             $('#buttons').off('click');
-            $('#first').on('click');
+            $('#second').on('click');
 
             if (game.currentPlayer.speed >= 11) {
                 $('#buttons').on('click', (e) => {
@@ -286,7 +285,7 @@ const game = {
                     game.story();
                     e.preventDefault();
                 });
-                $('#first').off('click');
+                $('#second').off('click');
                 $('#text-log').text(`The world seemingly slows around you as the HAMMER approaches. You deftly roll out of the way as the HAMMER slams into the door behind you. It blocks your exit.`)
                 $('#first').text(`Stand up!`);
                 $('#second').text(`blank`);
@@ -400,11 +399,13 @@ $('#first').on('click', (e) => {
     game.battle();
     game.story();
     e.preventDefault();
-    game.currentPlayer.run();
 
 })
 
 $('#second').on('click', (e) => {
+
+    game.story();
+    game.currentPlayer.run();
 
 
 })
