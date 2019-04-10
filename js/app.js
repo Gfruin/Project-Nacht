@@ -19,6 +19,12 @@ class Player {
     displayName() {
         $('#name').text(` ${this.name}`);
     }
+    displayHealth() {
+        $('#health').text(`Health ${game.currentPlayer.health}`);
+    }
+    displayWeapon() {
+        $('#weapon').text(`Weapon ${game.currentPlayer.weapon}`);
+    }
     toHit() {
         this.accuracy = this.strength + this.speed + this.weapon[0];
     }
@@ -51,6 +57,7 @@ class Player {
     }
     pickUpHealthPotion() {
         this.heal.splice(0, 1, game.healthPotion)
+        console.log(this.heal);
     }
 
 };
@@ -154,7 +161,7 @@ const game = {
     story: function() {
         //beginning
         if (this.screenPath.length === 1 && this.screenPath[0] === 'first') {
-            $('#text-log').text(`Awaken...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars. You don't know where you are. You try to conjure up an image of the last thing you remember...and it returns NOTHING. You do know your name...it is Aria. You look at your hands, your feet, scintillating bits of light flicker across them as you gaze upon both. The thought comes to your mind, "Were you always color-blind?" You look upon a world, in hues of black, white, and gray. The voice speaks to you again..."Find what was lost. Follow the PATH, and you shall be made WHOLE again. Stray and you will FAIL."`);
+            $('#text-log').text(`"Awaken"...These words are spoken in your mind as you draw breath. You gasp, and breath enters you as if for the first time. As you take your first breath, you stare into the dark sky, lit by unfamiliar stars. You don't know where you are. You try to conjure up an image of the last thing you remember...and it returns NOTHING. You do know your name...it is Aria. You look at your hands, your feet, scintillating bits of light flicker across them as you gaze upon both. The thought comes to your mind, "Were you always color-blind?" You look upon a world, in hues of black, white, and gray. The voice speaks to you again..."Find what was lost. Follow the PATH, and you shall be made WHOLE again. Stray and you will FAIL."`);
 
             $('#first').text(`Look Around`);
             $('#second').text(`Walk Forward`);
@@ -169,7 +176,7 @@ const game = {
         }
         //Get up and Walk away from bag
         if (this.screenPath.length === 3 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first') {
-            $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up, and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
+            $('#text-log').text(`That bag is suspicious. No way you're touching it! You get up and wander off in a direction. Any direction will do! You pick a mossy path and start walking. The forest feels like a dark and lively place. You listen to the many different noises that echo throughout the forest. You hear bird calls, the rustling of animals through brush, and the small bits of light that dapple your hand through the forest canopy. Time moves quickly. Hours pass by as you cross the forest. The further you go, the darker it gets. Soon, there is almost no light at all. As you grow wearier and more frightened, the ambient noises around you take a dark turn. Suddenly, you hear a loud, high-pitched whine behind you! `);
             this.currentNonPlayer = new NonPlayerCharacter('Wolverine');
             console.log(this.currentNonPlayer);
             $('#first').text(`Turn around!`);
@@ -219,7 +226,7 @@ const game = {
         }
         //defeat the wolverine
         if (this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && this.screenPath[5] === 'first') {
-            $('#text-log').text(`The hairy beast leaps toward you, in one final attempt to claim your life. You find strength where you had none before and you leap into the air! As you wrap your arms around the beasts neck, you pull with all your STRENGTH! The beast falls to the ground, defeated. You stumble to your feet, shaken. You've never killed anything before...  In front of you, there is an entrance to a cave.`)
+            $('#text-log').text(`The hairy beast leaps toward you, in one final attempt to claim your life. You find strength where you had none before and you leap into the air! As you wrap your arms around the beast's neck, you pull with all your STRENGTH! The beast falls to the ground, defeated. You stumble to your feet, shaken. You've never killed anything before...  In front of you, there is an entrance to a cave.`)
             $('#first').text(`Turn Back`);
             $('#second').text(`Walk in`);
             $('#third').text(`blank`);
@@ -364,9 +371,11 @@ const game = {
 
     start: function() {
         this.currentPlayer = new Player(this.name);
-        // this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
+        this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
         // game.currentPlayer.pickUpDagger();
         game.currentPlayer.displayName();
+        game.currentPlayer.displayWeapon();
+        game.currentPlayer.displayHealth();
         // game.gameOver();
         // game.lifeCheck();
         console.log(game.currentNonPlayer);
