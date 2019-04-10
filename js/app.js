@@ -37,6 +37,15 @@ class Player {
     healing() {
         this.health = this.health + this.heal[0];
     }
+    increaseStrength() {
+        this.strength = this.strength + Math.floor(Math.random() * (6 - 1) + 1);
+    }
+    increaseSpeed() {
+        this.speed = this.strength + Math.floor(Math.random() * (6 - 1) + 1);
+    }
+    increaseCharisma() {
+        this.charisma = this.charisma + Math.floor(Math.random() * (10 - 1) + 1)
+    }
     // attackWithSword() {
     //     let number = 0
     //     let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
