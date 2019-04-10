@@ -52,7 +52,7 @@ body {
 	display: flex;
 	background-color: rgb(235,213,179);
 	width: 80%;
-	height: 18em;
+	height: 25em;
 	/*max-height: 300px;*/
 	/*max-width: 1500px;*/
 	resize: both;
@@ -63,7 +63,7 @@ body {
 	bottom: 1%;
 	margin-left: 10%;
 	margin-right: 20%;
-	font-size: 17px;
+	font-size: 19px;
 	font-stretch: expanded;
 	columns: inherit;
 	font-family: 'Special Elite', cursive;
