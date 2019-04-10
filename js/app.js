@@ -635,7 +635,7 @@ const game = {
             this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
             ) {
             game.currentPlayer.increaseCharisma();
-            $('#text-log').text(`As you cross the room and near the throne, you start to experience a vision. Your sight begins to fade, colors whirling about you. Even as you close your eyes, you cannot escape the COLORS. As you open your eyes again, you see a young woman staring back at you. She has pale skin, and large teardrop brown eyes. Her hair is the color of honey. "Why can I see color again?" You realize that while she is "looking" at you, she isn't seeing you. You turn to face what she sees. As you do, your met with the image of a window. Outside the window, is an older woman and a man. Both share features with the young woman. They walk off, and for some reason, you know they never return. Around the edges of the vision a darkness begins to coalesce `)
+            $('#text-log').text(`As you cross the room and near the throne, you start to experience a vision. Your sight begins to fade, colors whirling about you. Even as you close your eyes, you cannot escape the COLORS. 'As you open your eyes again, you see a young woman staring back at you. She has pale skin, and large teardrop brown eyes. Her hair is the color of honey. "Why can I see color again?" You realize that while she is "looking" at you, she isn't seeing you. You turn to face what she sees. As you do, your met with the image of a window. Outside the window, is an older woman and a man. Both share features with the young woman. They walk off, and for some reason, you know they never return.' Around the edges of the vision a darkness begins to coalesce `)
             $('#first').text(`Keep walking towards the throne`);
             $('#second').text(`blank`);
             $('#third').text(`blank`);
@@ -665,9 +665,111 @@ const game = {
             this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
             && this.screenPath[8] === 'first'
             ) {
-            $('#text-log').text(`Your sight blurs again. You feel a wetness on your cheeks. Your hand reaches to your cheek and comes away wet. You're crying... As you walk forward, you begin to experience `)
+            game.currentPlayer.increaseSpeed();
+            $('#text-log').text(`Your sight blurs again. You feel a wetness on your cheeks. Your hand reaches to your cheek and comes away wet. You're crying... As you walk forward, you begin to experience another vision. 'You start to see the young woman again. This time, she is running through the streets of a large city. As she crisscrosses the various vendor stands and streets. She picks an apple from a street stall and sprints away. You hear yelling behind her. Immediately in the vision, you see a large, well-armored soldier chase after her. The soldier lunges for her as she leaps away. A hand wraps around the young woman's leg, for the barest of seconds. As the young woman gasps in surprise, she kicks FREE!!' As you watch her fly by a small smile crosses your face. At the end of the vision, you begin to see the shadows coalesce into a form. A shadowy human takes shape. `)
+            $('#first').text(`You reach out to touch the throne`);
+            $('#second').text(`blank`);
+            $('#third').text(`blank`);
+        }
+        //third and final memory increase strength
+        if (this.screenPath.length === 20 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            || this.screenPath.length === 20 && this.screenPath[0] === 'first' && 
+            this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            || this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first'
+            || this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first'
+            ) {
+            game.currentPlayer.increaseStrength();
+        $('#text-log').text(`You touch the throne, and an explosion of colors and light emerge before your eyes. The shadow moves to sit on the throne. As it does, you notice that it has become a dark reflection of the young woman from the vision. It reaches out to you and one last vision appears before you. 'You see the young woman again. This time she is injured and worn. She is surrounded by two friends. One is a large ORC, with long ears and green skin.' A name comes to your mind, 'Marite' 'She was at one point heavily armored, but you can tell that she has been horribly injured. The armor hangs in shreds on her. The other friend is much smaller, but equally as wounded. A small halfing man with brilliantly blonde hair and a wide wrinkled face.' You remember a name 'Gareth'. You remember that face smiling, laughing, whiling the time away with many a joke. 'In the vision, the face is haggard. Greviously wounded and missing an eye. You see them stand and face some unimaginable HORROR. You see the young woman, turn and RUN. As she does, you notice she looks back, tears in her eyes.' You see something that she did not. Her friends were smiling as she ran. `)
+            $('#first').text(`blank`);
+            $('#second').text(`Talk to the shadow woman`);
+            $('#third').text(`Attack it!`);
+        }
+        //attack the shadow woman
+        //talk to her
+        if (this.screenPath.length === 21 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            && this.screenPath[20] === 'second'
+            || this.screenPath.length === 21 && this.screenPath[0] === 'first' && 
+            this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            && this.screenPath[20] === 'second'
+            || this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
+            || this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
+            ) {
+            $('#text-log').text(`The Shadow Woman speaks to you 'You failed them. YOU RAN! You're a monster....a coward...a traitor. You will never be happy. Those you love either leave you or you BETRAY them. You will never be free of the guilt. ACCEPT YOUR FATE and DIE. YOU FAILED! You deserve death for ABANDONING THEM.' You erupt in tears, but you realize something. You saw something else in the vision. You SAW your friends SMILE. They SAVED you. 'I forgive you...'
+            I FORGIVE MYSELF... `)
+            $('#first').text(`blank`);
+            $('#second').text(`Forgive Yourself...`);
+            $('#third').text(`blank`);
 
-
+            }
+        //game end with main victory
+        if (this.screenPath.length === 22 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            && this.screenPath[20] === 'second' && this.screenPath[21] === 'second'
+            || this.screenPath.length === 22 && this.screenPath[0] === 'first' && 
+            this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
+            && this.screenPath[20] === 'second' && this.screenPath[21] === 'second'
+            || this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
+            && this.screenPath[11] === 'second'
+            || this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
+            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
+            && this.screenPath[11] === 'second'
+            ) {
+            $('#text-log').text(`The world around you starts to crumble. Your surroundings fade to white...You are OK.`)
+            $('#first').text(`Learn To`);
+            $('#second').text(`Forgive`);
+            $('#third').text(`Yourself`);
         }
         //turn back from the Tower
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
