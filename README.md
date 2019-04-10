@@ -1,4 +1,8 @@
 # Project-Nacht
+
+Wireframe: https://imgur.com/jyQsbzU
+
+
 1. User Stories
 2. User will be able to interact with game through Input Log
 3. User will be referred to as the Player Character (PC) for game records
@@ -26,3 +30,6 @@ Stretch Goals:
 1. Fully Animated Combat Encounters
 2. 30 minute playable or longer game
 3 .More than one playable character
+
+
+
