@@ -810,7 +810,7 @@ const game = {
         // game.currentPlayer.attackWithSword();
         // game.currentPlayer.attackWithDagger();
         // game.battle();
-        // console.log(game.currentPlayer.health);
+        // console.log(game.currentPlayer.health); dffadsfsfdaffdafa
     },
 
 }
