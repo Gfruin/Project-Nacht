@@ -64,6 +64,10 @@ class Player {
         this.weapon.splice(0, 1, game.dagger)
         console.log(this.weapon);
     }
+    pickUpAx() {
+        this.weapon.splice(0, 1, game.ax)
+        console.log(this.weapon);
+    }
     pickUpHealthPotion() {
         this.heal.splice(0, 1, game.healthPotion)
         console.log(this.heal);
