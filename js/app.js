@@ -106,14 +106,14 @@ class BossMonster extends Player {
     constructor(name) {
         super(name);
         this.health = Math.floor(Math.random() * (100 - 1) + 30);
-        this.strength = Math.floor(Math.random() * (10 - 1) + 25);
+        this.strength = Math.floor(Math.random() * (10 - 1) + 15);
         this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
         this.speed = Math.floor(Math.random() * (10 - 1) + 7);
         this.accuracy = Math.floor(Math.random() * (10 - 1) + 5);
 
     }
     toHit() {
-        this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1) + 15);
+        this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1) + 10);
     }
 };
 // const w = new Player('bob')
