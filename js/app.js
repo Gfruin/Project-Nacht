@@ -700,7 +700,7 @@ const game = {
         $('#text-log').text(`You touch the throne, and an explosion of colors and light emerge before your eyes. The shadow moves to sit on the throne. As it does, you notice that it has become a dark reflection of the young woman from the vision. It reaches out to you and one last vision appears before you. 'You see the young woman again. This time she is injured and worn. She is surrounded by two friends. One is a large ORC, with long ears and green skin.' A name comes to your mind, 'Marite' 'She was at one point heavily armored, but you can tell that she has been horribly injured. The armor hangs in shreds on her. The other friend is much smaller, but equally as wounded. A small halfing man with brilliantly blonde hair and a wide wrinkled face.' You remember a name 'Gareth'. You remember that face smiling, laughing, whiling the time away with many a joke. 'In the vision, the face is haggard. Greviously wounded and missing an eye. You see them stand and face some unimaginable HORROR. You see the young woman, turn and RUN. As she does, you notice she looks back, tears in her eyes.' You see something that she did not. Her friends were smiling as she ran. `)
             $('#first').text(`blank`);
             $('#second').text(`Talk to the shadow woman`);
-            $('#third').text(`Attack it!`);
+            $('#third').text(`blank`);
         }
         //attack the shadow woman
         //talk to her
