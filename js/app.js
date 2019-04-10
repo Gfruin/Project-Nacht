@@ -230,7 +230,7 @@ const game = {
         if (this.screenPath.length === 2 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first') {
             $('#text-log').text(`As you look around you, your gaze catches upon the rumpled form of some kind of bundle or bag.`);
             $('#first').text(`Get up and Walk away`);
-            $('#second').text(`Grab the bundle and look through it`);
+            $('#second').text(`blank`);
             $('#third').text(`blank`);
 
         }
