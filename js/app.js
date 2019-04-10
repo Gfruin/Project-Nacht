@@ -265,6 +265,21 @@ const game = {
             $('#second').text(`Follow the Hedge path`);
             $('#third').text(`blank`);
         }
+        //Follow the Hedge Path to the AX (I want to add a combat encounter here)
+        if(this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second'  || this.screenPath.length === 15 && 
+            this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && this.screenPath[14] === 'second') {
+            $('#text-log').text(`You choose to head down the Hedge Path. As you walk down the path, your world slowly shrinks. The hedge on both sides and the path in front of you are all you can see. The stars in the night sky move, but day does not appear. "Is it always night here?" Time stretches onward as you move forward through the hedge path. After some time, you come upon a glowing red ax, embedded in a tree stump.`)
+            $('#first').text(`Pick up the ax`);
+            $('#second').text(`That's suspiciously glowing...`);
+            $('#third').text(`blank`);
+        }
         //approach the door
         if (this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
@@ -359,6 +374,7 @@ const game = {
             $('#second').text(`Search the room`);
             $('#third').text(`blank`);
         }
+
 
         //turn back from the Tower
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
