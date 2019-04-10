@@ -20,7 +20,7 @@ class Player {
         $('#name').text(` ${this.name}`);
     }
     displayHealth() {
-        $('#health').text(`Health ${game.currentPlayer.health}`);
+        $('#health').text(`Health Max ${game.currentPlayer.health}`);
     }
     displayWeapon() {
         $('#weapon').text(`Weapon ${game.currentPlayer.weapon}`);
@@ -106,11 +106,14 @@ class BossMonster extends Player {
     constructor(name) {
         super(name);
         this.health = Math.floor(Math.random() * (100 - 1) + 30);
-        this.strength = Math.floor(Math.random() * (10 - 1) + 8);
+        this.strength = Math.floor(Math.random() * (10 - 1) + 25);
         this.charisma = Math.floor(Math.random() * (8 - 1) + 1);
         this.speed = Math.floor(Math.random() * (10 - 1) + 7);
         this.accuracy = Math.floor(Math.random() * (10 - 1) + 5);
 
+    }
+    toHit() {
+        this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1) + 15);
     }
 };
 // const w = new Player('bob')
@@ -163,13 +166,27 @@ const game = {
             game.currentPlayer.health = game.currentPlayer.health - game.currentNonPlayer.strength
             $('#text-log').text(` Your health is ${this.currentPlayer.health}`);
 
-            // this.lifeCheck();
-            // this.gameOver();
-            // this.battleWon();
+
         }
 
         console.log(game.currentPlayer.accuracy);
         console.log(game.currentNonPlayer.accuracy);
+    },
+    bossBattle: function() {
+        game.currentPlayer.toHit();
+        game.currentBossMonster.toHit();
+        if (game.currentPlayer.accuracy > game.currentBossMonster.accuracy) {
+            game.currentBossMonster.health = game.currentBossMonster.health - (game.currentPlayer.weapon[0] + this.currentPlayer.strength)
+            $('#text-log').text(`The enemy's health is ${this.currentBossMonster.health}`);
+
+        }
+        if (game.currentPlayer.accuracy < game.currentBossMonster.accuracy) {
+            game.currentPlayer.health = game.currentPlayer.health - game.currentBossMonster.strength
+            $('#text-log').text(` Your health is ${this.currentPlayer.health}`);
+
+
+        }
+
     },
     story: function() {
         //beginning
@@ -193,14 +210,14 @@ const game = {
             this.currentNonPlayer = new NonPlayerCharacter('Wolverine');
             console.log(this.currentNonPlayer);
             $('#first').text(`Turn around!`);
-            $('#second').text(`Try talking`);
+            $('#second').text(`blank`);
             $('#third').text(`RUN!!!!!`);
         }
         //uh-oh turn around and face monster
         if (this.screenPath.length === 4 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
             $('#text-log').text(`As you quickly turn to face your foe, your gaze turns to a snarling mass of wicked teeth, sizeable muscle, and matted fur of some kind of wolf-like creature. It howls at you, bloodlust intent in its eyes. It slowly circles you, moving in a horrifyingly mesmerising pattern. The tension is palpable. You know that you must make a decision soon...It lets out a howl that shakes you to your core. `)
             $('#first').text(`Attack it!!!`);
-            $('#second').text(`Try talking`);
+            $('#second').text(`blank`); //want to add talking...
             $('#third').text(`RUN!!!!!`);
         }
         // fight monster
@@ -256,10 +273,14 @@ const game = {
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 13 && 
+            this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'second') {
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' 
+            )
+             {
             $('#text-log').text(`You're determined to find out why you are here and who you are. No creepy-looking tower will keep you from following the PATH. As you approach, the tower looms over you. It's structure is dilapidated and broken. A high-rise of a structure, at least 200 feet tall. A large tall door stands at the front. You see a hedge path wind around the backend of the tower.`)
             $('#first').text(`Approach the Door`);
             $('#second').text(`Follow the Hedge path`);
@@ -269,7 +290,8 @@ const game = {
         if(this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second'  || this.screenPath.length === 15 && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' 
+             || this.screenPath.length === 15 && 
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
@@ -277,8 +299,164 @@ const game = {
             this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && this.screenPath[14] === 'second') {
             $('#text-log').text(`You choose to head down the Hedge Path. As you walk down the path, your world slowly shrinks. The hedge on both sides and the path in front of you are all you can see. The stars in the night sky move, but day does not appear. "Is it always night here?" Time stretches onward as you move forward through the hedge path. After some time, you come upon a glowing red ax, embedded in a tree stump.`)
             $('#first').text(`Pick up the ax`);
-            $('#second').text(`That's suspiciously glowing...`);
+            $('#second').text(`That's suspiciously glowing...better keep going`);
             $('#third').text(`blank`);
+        }
+        // Pick up the ax (a glowing talking ax? Cool) (I want to add a charisma check to this step)
+        if(this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first'  
+            || this.screenPath.length === 17 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first') {
+            $('#text-log').text(`You grab the glowing ax handle and pull with all your MIGHT! As you pull, a brilliant light erupts from the summit of the stump. The AX comes FREE!!! and a voice speaks in your head! "FRREEEDDOOMM!!!!!! Thank you for freeing me. Shall we go destroy evil?`)
+            $('#first').text(`blank`); //want to add another option here
+            $('#second').text(`A talking, glowing ax...COOL!`); 
+            $('#third').text(`blank`);
+            game.currentPlayer.pickUpAx();
+            game.currentPlayer.displayWeapon();
+        }
+        // You take the ax 
+          if(this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' 
+            || this.screenPath.length === 19 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'second' && this.screenPath[18] === 'second') {
+            $('#text-log').text(` You hear the cheerful voice of your ax speak to you again, "Hey I think we should head back to the tower! I think there is EVIL in there!" You take your new friend and head back to the tower entrance`)
+            $('#first').text(`Better keep going!`); //head back to the tower entrance
+            $('#second').text(`blank`);
+            $('#third').text(`blank`);
+        }
+        //preliminary path for no ax situation Hedge Path
+        if(this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' 
+            && this.screenPath[12] === 'second' && this.screenPath[13] === 'second'
+            || this.screenPath.length === 17 && 
+            this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second') {
+            $('#text-log').text(`You move forward, following the Hedge path as it leads you forward. The Hedge path closes behind you with each further step...`) 
+            $('#first').text(`Better keep going!`); 
+            $('#second').text(`blank`);
+            $('#third').text(`blank`);
+            }
+        //You keep following the Hedge Path with the ax or no ax and encounter a horrifying shadow monster
+        if(this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' 
+            && this.screenPath[17] === 'first'
+            || this.screenPath.length === 21 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' 
+            && this.screenPath[20] === 'first'
+            || this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first'
+            || this.screenPath.length === 19 && 
+            this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first'
+            ) {
+            this.currentBossMonster = new BossMonster('The Shadow')
+            $('#text-log').text(`You proceed forward along the Hedge path. As you do, you start becoming more and more lost. You begin to hear voices, images of times long past. As the voices of the night become louder and louder, a strange dark shadow coalesces its form near you. It starts to take form. A dark imitation of a human... `)
+            $('#first').text(`blank`);
+            $('#second').text(`blank`);
+            $('#third').text(`ATTACK!!`);
+        }
+            //Combat encounter with shadow
+            if(this.screenPath.length === 20 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' 
+            && this.screenPath[17] === 'first' && this.screenPath[18] === 'third' && this.screenPath[19] === 'third'
+            || this.screenPath.length === 23 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' 
+            && this.screenPath[20] === 'first' && this.screenPath[21] === 'third' && this.screenPath[22] === 'third'
+            || this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'third' && 
+            this.screenPath[17] === 'third'
+            || this.screenPath.length === 21 && 
+            this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'third' && 
+            this.screenPath[20] === 'third'
+            ) {
+
+            if (this.currentBossMonster.health < 0) {
+                console.log('This logic was hit');
+                $('#third').text(`One last strike!`);
+                $('#buttons').on('click', (e) => {
+                    game.story(e.target.id)
+                    game.screenPath.push(e.target.id)
+                    game.story();
+                    e.preventDefault();
+                });
+                $('#third').off('click');
+            }
+
+            if (this.currentPlayer.health < 0) {
+                console.log('this logic was hit');
+                $('#text-log').text(`You rise to fight the shadow one last time. Covered in blood from the battle, the shadow gets the best of you. It RISES...YOU FALL... GAME OVER!!!`)
+                $('#first').text(`Game Over`);
+                $('#second').text(`Game Over`);
+                $('#third').text(`Game Over`);
+            }
+
+            if (this.currentPlayer.health >= 0 && this.currentBossMonster.health >= 0) {
+                $('#buttons').off('click');
+                $('#third').on('click');
+                // $('#text-log').text(` `)
+                $('#text-log').text(`You battle the Shadow with all your might! The enemy's current health is ${this.currentBossMonster.health}! The enemy strikes you! Your health is  ${this.currentPlayer.health}`)
+                
+            }
+        
         }
         //approach the door
         if (this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
@@ -401,6 +579,7 @@ const game = {
     start: function() {
         this.currentPlayer = new Player(this.name);
         this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
+        this.currentBossMonster = new BossMonster('Shadow');
         // game.currentPlayer.pickUpDagger();
         game.currentPlayer.displayName();
         game.currentPlayer.displayWeapon();
@@ -451,10 +630,12 @@ $('#second').on('click', (e) => {
 
     game.story();
     game.currentPlayer.run();
+    // game.bossBattle();
 
 
 })
 $('#third').on('click', (e) => {
-
+    game.bossBattle();
+    game.story();
 
 })
