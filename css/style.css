@@ -1,38 +1,39 @@
 body {
-	margin: 0;
-	padding: 0;
-	display: flex;
-	background-image: 
-	url("http://realitysandwich.com/wp-content/uploads/2013/11/VortexLanding.jpg");
-	background-size: 100%;
-	background-repeat:  no-repeat;
-	background-position: top;
-	
-	/*background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-image:
+        url("http://realitysandwich.com/wp-content/uploads/2013/11/VortexLanding.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top;
+
+    /*background-color: black;
 	/*border: 3px solid black;*/
-	/*align-content: flex-end;*/
+    /*align-content: flex-end;*/
 }
+
 .status {
-	display: flex;
-	border: 1px solid white;
-	color: white;
-	width: 200px;
-	height: 100px;
-	/*position: absolute;
+    display: flex;
+    border: 1px solid white;
+    color: white;
+    width: 200px;
+    height: 100px;
+    /*position: absolute;
 	top: 20%;
 	bottom: 20%;*/
-		
+
 
 }
 
 #stats {
-	display: flex;
-	width: 100%	;
-	height: 15em;
-	/*align-content:flex-end;*/
-	resize: both;
-	overflow: auto;
-	justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 15em;
+    /*align-content:flex-end;*/
+    resize: both;
+    overflow: auto;
+    justify-content: center;
     align-content: flex-start;
     flex-direction: column;
     line-height: 40px;
@@ -41,83 +42,81 @@ body {
 
 
 }
+
 #background {
-	display: flex;
-	width: 100%;
-	height: 10em;
+    display: flex;
+    width: 100%;
+    height: 10em;
 }
 
 #text-log {
-	border: 3px solid black;
-	display: flex;
-	background-color: rgb(235,213,179);
-	width: 80%;
-	height: 25em;
-	/*max-height: 300px;*/
-	/*max-width: 1500px;*/
-	resize: both;
-	overflow: auto;
-	/*flex-direction: row;*/
-	/*align-self: flex-end;*/
-	position: absolute;
-	bottom: 1%;
-	margin-left: 10%;
-	margin-right: 20%;
-	font-size: 19px;
-	font-stretch: expanded;
-	columns: inherit;
-	font-family: 'Special Elite', cursive;
-	letter-spacing: .2em;
-	line-height: 32px;
+    border: 3px solid black;
+    display: flex;
+    background-color: rgb(235, 213, 179);
+    width: 80%;
+    height: 25em;
+    /*max-height: 300px;*/
+    /*max-width: 1500px;*/
+    resize: both;
+    overflow: auto;
+    /*flex-direction: row;*/
+    /*align-self: flex-end;*/
+    position: absolute;
+    bottom: 1%;
+    margin-left: 10%;
+    margin-right: 20%;
+    font-size: 19px;
+    font-stretch: expanded;
+    columns: inherit;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: .2em;
+    line-height: 32px;
 
 }
+
 #buttons {
-	display: flex;
-	justify-content: space-around | center;
-	flex-direction: row;
-	max-width: 1000px;
-	max-height: 200px;
-	color: rgb(235,213,179);
-	border: 3px solid white;
-	background-color: white;
-	line-height: 10px;
-	align-content: center;
-	align-items: center;
-	align-self: center;
-	position: absolute;
-	bottom: 1%;
-	margin-right: 20%;
-	margin-left: 20%;
-	margin-bottom: 1%;
-	resize: both;
-	overflow: auto;
-	font-size: 20px;
+    display: flex;
+    justify-content: space-around | center;
+    flex-direction: row;
+    max-width: 1000px;
+    max-height: 200px;
+    color: rgb(235, 213, 179);
+    border: 3px solid white;
+    background-color: white;
+    line-height: 10px;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    position: absolute;
+    bottom: 1%;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-bottom: 1%;
+    resize: both;
+    overflow: auto;
+    font-size: 20px;
 
 }
 
 #first {
-	width: 300px;
-	height: 30px;
-	font-family: 'Special Elite', cursive;
-	font-size: 16px;
+    width: 300px;
+    height: 30px;
+    font-family: 'Special Elite', cursive;
+    font-size: 16px;
 }
+
 #second {
-	width: 300px;
-	height: 30px;
-	font-family: 'Special Elite', cursive;
-	font-size: 16px;
+    width: 300px;
+    height: 30px;
+    font-family: 'Special Elite', cursive;
+    font-size: 16px;
 
 }
+
 #third {
-	width: 300px;
-	height: 30px;
-	font-family: 'Special Elite', cursive;
-	font-size: 16px;
+    width: 300px;
+    height: 30px;
+    font-family: 'Special Elite', cursive;
+    font-size: 16px;
 
 }
-
-
-
-
-
-
