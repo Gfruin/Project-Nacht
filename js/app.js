@@ -5,6 +5,8 @@
 // name, player, timer, interval, alive, equipment, Objective (win and loss)
 //
 // Need event listeners 
+
+//Player Class
 class Player {
     constructor(name) {
         this.name = name;
@@ -46,16 +48,7 @@ class Player {
     increaseCharisma() {
         this.charisma = this.charisma + Math.floor(Math.random() * (10 - 1) + 1)
     }
-    // attackWithSword() {
-    //     let number = 0
-    //     let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
-    //     // attack = game.currentNonPlayer.health - attack;
-    // }
-    // attackWithDagger() {
-    //     let number = 0
-    //     let attack = (this.strength / 2) + this.speed + Math.floor(Math.random() * (4 - 1) + 1);
-    //     console.log(attack);
-    // }
+
     pickUpSword() {
         this.weapon.splice(0, 1, game.sword)
         console.log(this.weapon);
@@ -76,7 +69,7 @@ class Player {
 };
 
 
-
+//non-player class: for the base randomly generated encounters
 class NonPlayerCharacter extends Player {
     constructor(name) {
         super(name);
@@ -96,12 +89,10 @@ class NonPlayerCharacter extends Player {
     run() {
         this.speed = this.speed + Math.floor(Math.random() * (4 - 1) + 1);
     }
-    // attackWithSword() {
-    //     let number = 0
-    //     let attack = this.strength + (this.speed / 2) + Math.floor(Math.random() * (9 - 1) + 1);
-    //     console.log(attack);
-    // }
+
 }
+
+//Boss monster class
 class BossMonster extends Player {
     constructor(name) {
         super(name);
@@ -116,17 +107,11 @@ class BossMonster extends Player {
         this.accuracy = this.strength + this.speed + Math.floor(Math.random() * (10 - 1) + 10);
     }
 };
-// const w = new Player('bob')
-// console.log(w);
-// const n = new NonPlayerCharacter('tim')
-// console.log(n);
 
+//Game object
 const game = {
     name: "Aria",
-    // npcName: "Gazorpa"
     currentPlayer: null,
-    // health: 100,
-    // enemyHealth: null,
     currentNonPlayer: null,
     screenPath: [],
     sword: Math.floor(Math.random() * (10 - 1) + 4),
@@ -136,24 +121,8 @@ const game = {
     gameOn: false,
     isAlive: true,
     wonBattle: false,
-    // lifeCheck: function() {
-    //     if (this.currentPlayer.health === 0) {
-    //         this.isAlive = false
-    //     }
-    // },
-    // gameOver: function() {
-    //     if (!this.isAlive) {
-    //         // const newImg = "Amiri"
-    //         $('#text-log').text(`GAME OVER!!!!`);
-
-    //     }
-    // },
-    // battleWon: function() {
-    //     if(this.currentNonPlayer.health <= 0) {
-    //         this.wonBattle = true
-    //         $('text-log').text(`You defeated the enemy!`)
-    //     }
-    // },
+    //battle method that dictates the fight encounters between the player
+    //and the Non-Player characters
     battle: function() {
         game.currentPlayer.toHit();
         game.currentNonPlayer.toHit();
@@ -172,6 +141,7 @@ const game = {
         console.log(game.currentPlayer.accuracy);
         console.log(game.currentNonPlayer.accuracy);
     },
+    //Boss Battle method for boss encounter
     bossBattle: function() {
         game.currentPlayer.toHit();
         game.currentBossMonster.toHit();
@@ -188,6 +158,7 @@ const game = {
         }
 
     },
+    //-----------------------------------> Adventure Path Beginning
     story: function() {
         //beginning
         if (this.screenPath.length === 1 && this.screenPath[0] === 'first') {
@@ -196,9 +167,9 @@ const game = {
             $('#first').text(`Look Around`);
             $('#second').text(`Walk Forward`);
             $('#third').text(`Fall Back Asleep`);
-        } 
+        }
         //Fall Back Asleep
-        if(this.screenPath.length === 2 && this.screenPath[0] === 'first' && this.screenPath[1] === 'third') {
+        if (this.screenPath.length === 2 && this.screenPath[0] === 'first' && this.screenPath[1] === 'third') {
             $('#text-log').text(`You decide that your future self can handle any problem. Right now, you just feel so absolutely EXHAUSTED. As you lie your head down on the ground, visions swim across your mind's eye. You see images that seem familiar, but are empty for you. You achieve a sense of serenity, if not fulfillment. Life ebbs from you. Your PATH has ended. GAME OVER!`)
             $('#first').text(`Game Over`);
             $('#second').text(`Game Over`);
@@ -220,6 +191,7 @@ const game = {
             $('#second').text(`blank`); //want to add option 
             $('#third').text(`blank`);
         }
+        //sword path to tower
         if (this.screenPath.length === 4 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
             $('#text-log').text(`You proceed along the forester's path. Hours pass by, and yet, the world remains dark. The night sky still light by brilliant and beautiful stars. As you proceed forward you notice there is a stone path that leads up to a Tower.`)
             $('#first').text(`You head to the Tower entrance`);
@@ -256,6 +228,9 @@ const game = {
             //or the NPC's health is at or below 0
             //need to log the current player and NPC health on the text log
             //need to then reset the this.screenPath array length to 4
+            //need to turn the buttons off and on
+            //need to turn on the first button only
+            //need to make sure the logging of screenPaths can be toggled on and off
             if (this.currentNonPlayer.health < 0) {
                 console.log('This logic was hit');
                 $('#first').text(`One last strike!`);
@@ -281,7 +256,7 @@ const game = {
                 $('#first').on('click');
                 // $('#text-log').text(` `)
                 $('#text-log').text(`You pummel the enemy with your bare fists! The enemy's current health is ${this.currentNonPlayer.health}! The enemy strikes you! Your health is  ${this.currentPlayer.health}`)
-                
+
             }
         }
         //defeat the wolverine
@@ -303,27 +278,26 @@ const game = {
         if (this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 13 && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' || this.screenPath.length === 13 &&
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && 
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second'
             // || this.screenPath.length === 5 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
             // this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first'
-            )
-             {
+        ) {
             $('#text-log').text(`You're determined to find out why you are here and who you are. No creepy-looking tower will keep you from following the PATH. As you approach, the tower looms over you. It's structure is dilapidated and broken. A high-rise of a structure, at least 200 feet tall. A large tall door stands at the front. You see a hedge path wind around the backend of the tower.`)
             $('#first').text(`Approach the Door`);
             $('#second').text(`Follow the Hedge path`);
             $('#third').text(`blank`);
         }
         //Follow the Hedge Path to the AX (I want to add a combat encounter here)
-        if(this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' 
-             || this.screenPath.length === 15 && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' ||
+            this.screenPath.length === 15 &&
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
@@ -335,37 +309,37 @@ const game = {
             $('#third').text(`blank`);
         }
         // Pick up the ax (a glowing talking ax? Cool) (I want to add a charisma check to this step)
-        if(this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
-            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first'  
-            || this.screenPath.length === 17 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' ||
+            this.screenPath.length === 17 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
             this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first') {
             $('#text-log').text(`You grab the glowing ax handle and pull with all your MIGHT! As you pull, a brilliant light erupts from the summit of the stump. The AX comes FREE!!! and a voice speaks in your head! "FRREEEDDOOMM!!!!!! Thank you for freeing me. Shall we go destroy evil?`)
             $('#first').text(`blank`); //want to add another option here
-            $('#second').text(`A talking, glowing ax...COOL!`); 
+            $('#second').text(`A talking, glowing ax...COOL!`);
             $('#third').text(`blank`);
             game.currentPlayer.pickUpAx();
             game.currentPlayer.displayWeapon();
         }
         // You take the ax 
-          if(this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
-            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' 
-            || this.screenPath.length === 19 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' ||
+            this.screenPath.length === 19 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
             this.screenPath[17] === 'second' && this.screenPath[18] === 'second') {
             $('#text-log').text(` You hear the cheerful voice of your ax speak to you again, "Hey I think we should head back to the tower! I think there is EVIL in there!" You take your new friend and head back to the tower entrance`)
             $('#first').text(`Better keep going!`); //head back to the tower entrance
@@ -373,93 +347,93 @@ const game = {
             $('#third').text(`blank`);
         }
         //preliminary path for no ax situation Hedge Path
-        if(this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 14 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' 
-            && this.screenPath[12] === 'second' && this.screenPath[13] === 'second'
-            || this.screenPath.length === 17 && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && this.screenPath[11] === 'second' &&
+            this.screenPath[12] === 'second' && this.screenPath[13] === 'second' ||
+            this.screenPath.length === 17 &&
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
             this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second') {
-            $('#text-log').text(`You move forward, following the Hedge path as it leads you forward. The Hedge path closes behind you with each further step...`) 
-            $('#first').text(`Better keep going!`); 
+            $('#text-log').text(`You move forward, following the Hedge path as it leads you forward. The Hedge path closes behind you with each further step...`)
+            $('#first').text(`Better keep going!`);
             $('#second').text(`blank`);
             $('#third').text(`blank`);
-            }
+        }
         //You keep following the Hedge Path with the ax or no ax and encounter a horrifying shadow monster
-        if(this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        if (this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
-            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' 
-            && this.screenPath[17] === 'first'
-            || this.screenPath.length === 21 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' ||
+            this.screenPath.length === 21 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' 
-            && this.screenPath[20] === 'first'
-            || this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'first' ||
+            this.screenPath.length === 16 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
             this.screenPath[11] === 'second' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first'
-            || this.screenPath.length === 19 && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' ||
+            this.screenPath.length === 19 &&
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
             this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second' &&
             this.screenPath[17] === 'first' && this.screenPath[18] === 'first'
-            ) {
+        ) {
             this.currentBossMonster = new BossMonster('The Shadow')
             $('#text-log').text(`You proceed forward along the Hedge path. As you do, you start becoming more and more lost. You begin to hear voices, images of times long past. As the voices of the night become louder and louder, a strange dark shadow coalesces its form near you. It starts to take form. A dark imitation of a human... `)
             $('#first').text(`blank`);
             $('#second').text(`blank`);
             $('#third').text(`ATTACK!!`);
         }
-            //Combat encounter with shadow
-            if(this.screenPath.length === 20 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+        //Combat encounter with shadow
+        if (this.screenPath.length === 20 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
-            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' 
-            && this.screenPath[17] === 'first' && this.screenPath[18] === 'third' && this.screenPath[19] === 'third'
-            || this.screenPath.length === 23 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'third' && this.screenPath[19] === 'third' ||
+            this.screenPath.length === 23 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' 
-            && this.screenPath[20] === 'first' && this.screenPath[21] === 'third' && this.screenPath[22] === 'third'
-            || this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'second' && this.screenPath[18] === 'second' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'first' && this.screenPath[21] === 'third' && this.screenPath[22] === 'third' ||
+            this.screenPath.length === 18 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'second' &&
             this.screenPath[11] === 'second' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'third' && 
-            this.screenPath[17] === 'third'
-            || this.screenPath.length === 21 && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'third' &&
+            this.screenPath[17] === 'third' ||
+            this.screenPath.length === 21 &&
             this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'second' && this.screenPath[13] === 'second' &&
             this.screenPath[14] === 'second' && this.screenPath[15] === 'second' && this.screenPath[16] === 'second' &&
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'third' && 
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'third' &&
             this.screenPath[20] === 'third'
-            ) {
+        ) {
 
             if (this.currentBossMonster.health < 0) {
                 console.log('This logic was hit');
@@ -486,18 +460,17 @@ const game = {
                 $('#third').on('click');
                 // $('#text-log').text(` `)
                 $('#text-log').text(`You battle the Shadow with all your might! The enemy's current health is ${this.currentBossMonster.health}! The enemy strikes you! Your health is  ${this.currentPlayer.health}`)
-                
+
             }
-        
+
         }
         //approach the door
         if (this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' 
-            || this.screenPath.length === 5 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first')
-        {
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' ||
+            this.screenPath.length === 5 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first') {
             $('#text-log').text(`You approach the massive wooden door. The door has two large ring door handles.`)
             $('#first').text(`Try pushing the doors open`);
             $('#second').text(`Turn back`); //still need to add more for sword path it is on 6 length here
@@ -507,11 +480,10 @@ const game = {
         if (this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && 
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' 
-            || this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && this.screenPath[5] === 'first')
-        {
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'first' ||
+            this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && this.screenPath[5] === 'first') {
             $('#text-log').text(`You don't have time to be polite! You push open the doors! As you enter, you hear a 'CRACK' and a swift sound of a solid object moving through the air. You see it to be a large HAMMER as it moves closer to smash you!`)
             $('#first').text(`Try to dodge!`);
             $('#second').text(`Accept your fate!`);
@@ -523,11 +495,11 @@ const game = {
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first'
-            || this.screenPath.length === 7 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' ||
+            this.screenPath.length === 7 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first'
-            ) {
+        ) {
             $('#first').text(`blank`);
             $('#second').text(`Try to Dodge!`);
             $('#third').text(`blank`);
@@ -561,12 +533,12 @@ const game = {
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
-            this.screenPath[14] === 'second' && this.screenPath[15] === 'second'
-            || this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[14] === 'second' && this.screenPath[15] === 'second' ||
+            this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'second'
 
-            ) {
+        ) {
             $('#text-log').text(`You meet your fate at the end of an immense HAMMER. Guess you should have knocked first,ehh??? Your PATH has ENDED! GAME OVER!!!`)
             $('#first').text(`Game Over`);
             $('#second').text(`Game Over`);
@@ -576,11 +548,11 @@ const game = {
         if (this.screenPath.length === 13 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
-            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'third'
-            || this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' && this.screenPath[11] === 'first' && this.screenPath[12] === 'third' ||
+            this.screenPath.length === 6 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'third'
-            ) {
+        ) {
             $('#text-log').text(`You try knocking on the door, and wait for a response. A minute passes by with no acknowledgment. Well...at least you tried to be polite. `)
             $('#first').text(`Push open the door`);
             $('#second').text(`blank`);
@@ -591,21 +563,21 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' || this.screenPath.length === 17 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' || this.screenPath.length === 17 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first'
-            || this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            || this.screenPath.length === 7 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' 
-            ) {
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' ||
+            this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' ||
+            this.screenPath.length === 7 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first'
+        ) {
             $('#text-log').text(`You see a large, round entrance hall. As you gaze around your vicinity, you see the crumbling remains of the rich and powerful. Beautiful tapestries once adorned the walls, hang stretched, ripped, and torn. Large wooden banquet tables line the area to your immediate left and right. All in various stages of decay. As you gaze across the room, you see a large stone throne across the room.`)
             $('#first').text(`That throne looks interesting`);
             $('#second').text(`blank`); //want to add a search the room
@@ -616,24 +588,24 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'first'
-            || this.screenPath.length === 18 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' ||
+            this.screenPath.length === 18 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
-            this.screenPath[17] === 'first' 
-            || this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            || this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
+            this.screenPath[17] === 'first' ||
+            this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' ||
+            this.screenPath.length === 8 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            ) {
+        ) {
             game.currentPlayer.increaseCharisma();
             $('#text-log').text(`As you cross the room and near the throne, you start to experience a vision. Your sight begins to fade, colors whirling about you. Even as you close your eyes, you cannot escape the COLORS. 'As you open your eyes again, you see a young woman staring back at you. She has pale skin, and large teardrop brown eyes. Her hair is the color of honey. "Why can I see color again?" You realize that while she is "looking" at you, she isn't seeing you. You turn to face what she sees. As you do, your met with the image of a window. Outside the window, is an older woman and a man. Both share features with the young woman. They walk off, and for some reason, you know they never return.' Around the edges of the vision a darkness begins to coalesce `)
             $('#first').text(`Keep walking towards the throne`);
@@ -645,26 +617,26 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first'
-            || this.screenPath.length === 19 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' ||
+            this.screenPath.length === 19 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first'
-            || this.screenPath.length === 9 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first'
-            || this.screenPath.length === 9 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first'
-            ) {
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' ||
+            this.screenPath.length === 9 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' ||
+            this.screenPath.length === 9 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first'
+        ) {
             game.currentPlayer.increaseSpeed();
             $('#text-log').text(`Your sight blurs again. You feel a wetness on your cheeks. Your hand reaches to your cheek and comes away wet. You're crying... As you walk forward, you begin to experience another vision. 'You start to see the young woman again. This time, she is running through the streets of a large city. As she crisscrosses the various vendor stands and streets. She picks an apple from a street stall and sprints away. You hear yelling behind her. Immediately in the vision, you see a large, well-armored soldier chase after her. The soldier lunges for her as she leaps away. A hand wraps around the young woman's leg, for the barest of seconds. As the young woman gasps in surprise, she kicks FREE!!' As you watch her fly by a small smile crosses your face. At the end of the vision, you begin to see the shadows coalesce into a form. A shadowy human takes shape. `)
             $('#first').text(`You reach out to touch the throne`);
@@ -676,28 +648,28 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            || this.screenPath.length === 20 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' ||
+            this.screenPath.length === 20 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            || this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first'
-            || this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first'
-            ) {
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' ||
+            this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first' ||
+            this.screenPath.length === 10 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first'
+        ) {
             game.currentPlayer.increaseStrength();
-        $('#text-log').text(`You touch the throne, and an explosion of colors and light emerge before your eyes. The shadow moves to sit on the throne. As it does, you notice that it has become a dark reflection of the young woman from the vision. It reaches out to you and one last vision appears before you. 'You see the young woman again. This time she is injured and worn. She is surrounded by two friends. One is a large ORC, with long ears and green skin.' A name comes to your mind, 'Marite' 'She was at one point heavily armored, but you can tell that she has been horribly injured. The armor hangs in shreds on her. The other friend is much smaller, but equally as wounded. A small halfing man with brilliantly blonde hair and a wide wrinkled face.' You remember a name 'Gareth'. You remember that face smiling, laughing, whiling the time away with many a joke. 'In the vision, the face is haggard. Greviously wounded and missing an eye. You see them stand and face some unimaginable HORROR. You see the young woman, turn and RUN. As she does, you notice she looks back, tears in her eyes.' You see something that she did not. Her friends were smiling as she ran. `)
+            $('#text-log').text(`You touch the throne, and an explosion of colors and light emerge before your eyes. The shadow moves to sit on the throne. As it does, you notice that it has become a dark reflection of the young woman from the vision. It reaches out to you and one last vision appears before you. 'You see the young woman again. This time she is injured and worn. She is surrounded by two friends. One is a large ORC, with long ears and green skin.' A name comes to your mind, 'Marite' 'She was at one point heavily armored, but you can tell that she has been horribly injured. The armor hangs in shreds on her. The other friend is much smaller, but equally as wounded. A small halfing man with brilliantly blonde hair and a wide wrinkled face.' You remember a name 'Gareth'. You remember that face smiling, laughing, whiling the time away with many a joke. 'In the vision, the face is haggard. Greviously wounded and missing an eye. You see them stand and face some unimaginable HORROR. You see the young woman, turn and RUN. As she does, you notice she looks back, tears in her eyes.' You see something that she did not. Her friends were smiling as she ran. `)
             $('#first').text(`blank`);
             $('#second').text(`Talk to the shadow woman`);
             $('#third').text(`blank`);
@@ -708,64 +680,64 @@ const game = {
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            && this.screenPath[20] === 'second'
-            || this.screenPath.length === 21 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'second' ||
+            this.screenPath.length === 21 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            && this.screenPath[20] === 'second'
-            || this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
-            || this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
-            ) {
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'second' ||
+            this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second' ||
+            this.screenPath.length === 11 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
+        ) {
             $('#text-log').text(`The Shadow Woman speaks to you 'You failed them. YOU RAN! You're a monster....a coward...a traitor. You will never be happy. Those you love either leave you or you BETRAY them. You will never be free of the guilt. ACCEPT YOUR FATE and DIE. YOU FAILED! You deserve death for ABANDONING THEM.' You erupt in tears, but you realize something. You saw something else in the vision. You SAW your friends SMILE. They SAVED you. 'I forgive you...'
             I FORGIVE MYSELF... `)
             $('#first').text(`blank`);
             $('#second').text(`Forgive Yourself...`);
             $('#third').text(`blank`);
 
-            }
+        }
         //game end with main victory
         if (this.screenPath.length === 22 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
-            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' && 
-            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' && 
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            && this.screenPath[20] === 'second' && this.screenPath[21] === 'second'
-            || this.screenPath.length === 22 && this.screenPath[0] === 'first' && 
+            this.screenPath[11] === 'first' && this.screenPath[12] === 'third' && this.screenPath[13] === 'third' &&
+            this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'second' && this.screenPath[21] === 'second' ||
+            this.screenPath.length === 22 && this.screenPath[0] === 'first' &&
             this.screenPath[1] === 'first' &&
             this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
             this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
             this.screenPath[8] === 'second' && this.screenPath[9] === 'second' && this.screenPath[10] === 'first' &&
             this.screenPath[11] === 'first' && this.screenPath[12] === 'first' && this.screenPath[13] === 'first' &&
             this.screenPath[14] === 'first' && this.screenPath[15] === 'first' && this.screenPath[16] === 'first' &&
-            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first'
-            && this.screenPath[20] === 'second' && this.screenPath[21] === 'second'
-            || this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
-            && this.screenPath[11] === 'second'
-            || this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' && 
-            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' && 
-            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first'
-            && this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second'
-            && this.screenPath[11] === 'second'
-            ) {
+            this.screenPath[17] === 'first' && this.screenPath[18] === 'first' && this.screenPath[19] === 'first' &&
+            this.screenPath[20] === 'second' && this.screenPath[21] === 'second' ||
+            this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'first' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second' ||
+            this.screenPath.length === 12 && this.screenPath[0] === 'first' && this.screenPath[1] === 'second' &&
+            this.screenPath[2] === 'first' && this.screenPath[3] === 'first' && this.screenPath[4] === 'first' &&
+            this.screenPath[5] === 'third' && this.screenPath[6] === 'first' && this.screenPath[7] === 'first' &&
+            this.screenPath[8] === 'first' && this.screenPath[9] === 'first' && this.screenPath[10] === 'second' &&
+            this.screenPath[11] === 'second'
+        ) {
             $('#text-log').text(`The world around you starts to crumble. Your surroundings fade to white...You are OK.`)
             $('#first').text(`Learn To`);
             $('#second').text(`Forgive`);
@@ -792,7 +764,9 @@ const game = {
         }
 
     },
+    //-----------------------------------------------> End of Adventure Paths
 
+    //start game function
     start: function() {
         this.currentPlayer = new Player(this.name);
         this.currentNonPlayer = new NonPlayerCharacter("Gazorpa");
@@ -815,15 +789,15 @@ const game = {
 
 }
 
-
+//-------------------------->Event Listeners
 
 game.start();
 // game.story();
 
 $('#buttons').on('click', (e) => {
 
-    // console.log(e.target.id);
     game.story(e.target.id)
+    //below: toggle screenPath choices and push into array
     game.screenPath.push(e.target.id)
     game.story();
     e.preventDefault();
@@ -833,10 +807,7 @@ $('#buttons').on('click', (e) => {
 
 
 $('#first').on('click', (e) => {
-    // $('#first').data('clicked', true);
-    // game.turnOn();
-    // game.start();
-    // console.log(game.gameOn)
+
     game.battle();
     game.story();
     e.preventDefault();
