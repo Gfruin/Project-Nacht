@@ -34,8 +34,12 @@ Game Info:
 
 Stretch Goals:
 1. Fully Animated Combat Encounters
+
 2. 30 minute playable or longer game
-3 .More than one playable character
-4.User will be able to interact with images on the screen
-5.Add audio
+
+3. More than one playable character
+
+4. User will be able to interact with images on the screen
+
+5. Add audio
 
