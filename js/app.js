@@ -215,6 +215,19 @@ const game = {
             $('#second').text(`blank`);
             $('#third').text(`RUN!!!!!`);
         }
+        //Run away from wolverine
+        if(this.screenPath.length === 4 && this.screenPath[0] === 'first' && 
+            this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && 
+            this.screenPath[3]) {
+            this.currentPlayer.run() 
+            this.currentNonPlayer.run()
+            $('#text-log').text(`You attempt to escape the beast by running as fast as you can, but it reaches out to grab you...`)
+            $('#first').text(`blank`);
+            $('#second').text(`Attempt to dodge and escape!`);
+            $('#third').text(`blank`);
+        }
+        //attempt to escape from the clutches of the wolervine
+        
         //uh-oh turn around and face monster
         if (this.screenPath.length === 4 && this.screenPath[0] === 'first' && this.screenPath[1] === 'first' && this.screenPath[2] === 'first' && this.screenPath[3] === 'first') {
             $('#text-log').text(`As you quickly turn to face your foe, your gaze turns to a snarling mass of wicked teeth, sizeable muscle, and matted fur of some kind of wolf-like creature. It howls at you, bloodlust intent in its eyes. It slowly circles you, moving in a horrifyingly mesmerising pattern. The tension is palpable. You know that you must make a decision soon...It lets out a howl that shakes you to your core. `)
